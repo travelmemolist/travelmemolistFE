@@ -3,17 +3,17 @@ import * as S from "./style";
 function Header() {
   return (
     <S.HeaderWrapper>
-      <Row gutter={[16, 16]}>
+      <Row style={{ width: "100%" }} gutter={[16, 16]}>
         <Col span={8}>
           <h1>Logo</h1>
         </Col>
         <Col span={8}>
-          <ul>
+          <S.Menu>
             <li>HOME</li>
             <li>PROFILE</li>
             <li>PORTFOLIO</li>
             <li>BLOG</li>
-          </ul>
+          </S.Menu>
         </Col>
         <Col span={8}>
           <h1>Avatar</h1>
