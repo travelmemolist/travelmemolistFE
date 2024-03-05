@@ -1,7 +1,13 @@
-import { Button, Col, Input, Modal, Row, Form } from "antd";
-
+import { Button, Col, Input, Modal, Row, Form, TimePicker } from "antd";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
   const [addForm] = Form.useForm();
+
+  const onChange = (time, timeString) => {
+    console.log(timeString);
+  };
   return (
     <Modal
       title="Thêm hoạt động"
@@ -49,12 +55,14 @@ function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
               rules={[
                 {
                   required: true,
-                  whitespace: true,
                   message: "Thời gian bắt đầu bắt buộc nhập!",
                 },
               ]}
             >
-              <Input placeholder="9:00" />
+              <TimePicker
+                onChange={onChange}
+                defaultOpenValue={dayjs("00:00:00", "HH:mm:ss")}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -64,17 +72,14 @@ function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
               rules={[
                 {
                   required: true,
-                  whitespace: true,
                   message: "Thời gian kết thúc là bắt buộc!",
-                },
-                {
-                  max: 40,
-                  min: 6,
-                  message: "Điền từ 6 -> 40 kí tự",
                 },
               ]}
             >
-              <Input placeholder="11:00" />
+              <TimePicker
+                onChange={onChange}
+                defaultOpenValue={dayjs("00:00:00", "HH:mm:ss")}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
