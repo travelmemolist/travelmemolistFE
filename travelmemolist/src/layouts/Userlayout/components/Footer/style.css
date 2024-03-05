@@ -1,0 +1,44 @@
+.footer {
+  background-color: #6c62ff;
+  margin-top: 30px;
+  color: #fff;
+  padding: 50px 0;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+.describe {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 100px;
+}
+.describe > div {
+  flex: 1;
+}
+.airtrav .title > i {
+  background-color: #6c62ff;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 5px;
+}
+.services {
+  padding-left: 200px;
+}
+.son {
+  padding: 10px 0;
+}
+.email {
+  background-color: white;
+  color: gray;
+  border-radius: 50px;
+  width: 180px;
+  height: 30px;
+}
+.email > i {
+  background-color: #6c62ff;
+  color: white;
+  width: 20px;
+  border-radius: 10px;
+}
