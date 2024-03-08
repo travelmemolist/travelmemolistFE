@@ -1,7 +1,58 @@
-import { Button, Col, Input, Modal, Row, Form } from "antd";
+import {
+  Button,
+  Col,
+  Input,
+  Modal,
+  Row,
+  Form,
+  TimePicker,
+  notification,
+} from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
-function UpdateActivity({ isShowUpdateActivity, setIsShowUpdateActivity }) {
+import { updateActivityRequest } from "../../../../redux/slices/dayActivity.slice";
+import dayjs from "dayjs";
+
+function UpdateActivity({
+  isShowUpdateActivity,
+  setIsShowUpdateActivity,
+  activityId,
+}) {
   const [updateForm] = Form.useForm();
+
+  const { activity } = useSelector((state) => state.dayActivity);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (activityId) {
+      updateForm.setFieldsValue({
+        name: activity.data.name,
+        describe: activity.data?.describe,
+        startTime: moment(activity.data.startTime),
+        endTime: moment(activity.data.endTime),
+      });
+    }
+  }, [activity.data]);
+
+  const handleUpdateActivity = (values) => {
+    if (values.startTime.valueOf() > values.endTime.valueOf()) {
+      notification.error({ message: "Nhập thời gian chưa hợp lệ!" });
+    } else {
+      dispatch(
+        updateActivityRequest({
+          data: {
+            id: activityId,
+            startTime: values.startTime,
+            endTime: values.endTime,
+            ...values,
+          },
+        })
+      );
+      setIsShowUpdateActivity(false);
+    }
+  };
   return (
     <Modal
       title="Chỉnh sửa hoạt động "
@@ -14,7 +65,7 @@ function UpdateActivity({ isShowUpdateActivity, setIsShowUpdateActivity }) {
         form={updateForm}
         name="UpdateActivity"
         layout="vertical"
-        // onFinish={(values) => handleCreateUpdateress(values)}
+        onFinish={(values) => handleUpdateActivity(values)}
       >
         <Row gutter={[16, 16]}>
           <Col span={24}>
@@ -44,42 +95,35 @@ function UpdateActivity({ isShowUpdateActivity, setIsShowUpdateActivity }) {
           </Col>
           <Col span={12}>
             <Form.Item
-              name="timeStart"
+              name="startTime"
               label="Thời gian bắt đầu"
               rules={[
                 {
                   required: true,
-                  whitespace: true,
                   message: "Thời gian bắt đầu bắt buộc nhập!",
                 },
               ]}
             >
-              <Input placeholder="9:00" />
+              <TimePicker format={"HH:mm"} />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              name="timeEnd"
+              name="endTime"
               label="Thời gian kết thúc"
               rules={[
                 {
                   required: true,
-                  whitespace: true,
                   message: "Thời gian kết thúc là bắt buộc!",
-                },
-                {
-                  max: 40,
-                  min: 6,
-                  message: "Điền từ 6 -> 40 kí tự",
                 },
               ]}
             >
-              <Input placeholder="11:00" />
+              <TimePicker format={"HH:mm"} />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Button type="primary" block onClick={() => updateForm.submit()}>
-              Thêm
+              Cập nhật
             </Button>
           </Col>
           <Col span={12}>
