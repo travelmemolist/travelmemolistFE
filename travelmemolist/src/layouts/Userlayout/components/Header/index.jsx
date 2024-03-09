@@ -1,7 +1,10 @@
 import * as S from "./style";
 import "./sty.css";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "constants/routes";
 function Header() {
+  const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -22,7 +25,7 @@ function Header() {
     <S.HeaderWrapper>
       <div className="navbar">
         <div className="logo">
-          <h1>TM</h1>
+          <h1 onClick={() => navigate(ROUTES.USER.HOME)}>TM</h1>
         </div>
         <div className="item">
           <ul>

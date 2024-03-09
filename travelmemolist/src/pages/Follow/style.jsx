@@ -79,7 +79,7 @@ export const ActivityList = styled(Row)`
   justify-content: center;
   margin: 0 0 15px !important;
 `;
-export const ActivitItem = styled(Col)`
+export const ActivityItem = styled(Col)`
   min-height: 100px;
   border-radius: 14px;
   box-shadow: -5px 0 5px ${COLOR.BOX_SHADOW_COLOR},

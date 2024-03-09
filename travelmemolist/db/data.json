@@ -1,4 +1,5 @@
 {
+  "users": [],
   "dayActivities": [
     {
       "id": 1,
@@ -48,8 +49,8 @@
       "id": 3,
       "dayActivityId": 3,
       "name": "Đảo sơn trà",
-      "startTime": "1970-01-01T09:20:00.000Z",
-      "endTime": "1970-01-01T09:46:40.000Z"
+      "startTime": "2024-03-08T11:25:12.212Z",
+      "endTime": "2024-03-08T12:18:19.747Z"
     },
     {
       "dayActivityID": null,
@@ -70,25 +71,6 @@
       "endTime": "2024-03-08T07:31:27.788Z"
     },
     {
-      "dayActivityId": 2,
-      "name": "Coi phim",
-      "timeStart": "2024-03-07T18:01:01.000Z",
-      "timeEnd": "2024-03-07T19:02:00.000Z",
-      "id": 6,
-      "startTime": "2024-03-08T07:05:57.377Z",
-      "endTime": "2024-03-08T07:10:57.300Z"
-    },
-    {
-      "dayActivityId": 2,
-      "name": "aaaaaa",
-      "describe": "aa",
-      "timeStart": "2024-03-07T18:01:00.000Z",
-      "timeEnd": "2024-03-08T07:05:15.400Z",
-      "id": 7,
-      "startTime": "2024-03-08T03:31:16.023Z",
-      "endTime": "2024-03-08T07:31:16.023Z"
-    },
-    {
       "startTime": "2024-03-07T18:02:02.000Z",
       "endTime": "2024-03-07T20:03:09.000Z",
       "dayActivityId": 4,
@@ -97,11 +79,38 @@
       "id": 8
     },
     {
-      "startTime": "2024-03-07T18:30:26.732Z",
-      "endTime": "2024-03-07T19:30:31.228Z",
+      "startTime": "2024-03-08T15:30:35.104Z",
+      "endTime": "2024-03-08T16:35:43.281Z",
       "dayActivityId": 4,
       "name": "Đi uống nước mía",
       "id": 9
+    }
+  ],
+  "images": [
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F97b519bc-3a0b-4dbe-a6c0-09431c294e5b?alt=media&token=a39e9948-f962-491c-b74a-0dd3ec80f2d6",
+      "id": 1
+    },
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F22a68ad4-fee0-46ed-af71-407392460f15?alt=media&token=e9040258-a9f3-4594-b1f3-aad42738a0e6",
+      "id": 2
+    },
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F7e1f3e5b-9dd2-4a40-a768-7d5a1850825f?alt=media&token=1d3f7f2f-714a-40fa-96a3-532f385d725e",
+      "id": 3
+    },
+    {
+      "activityId": 2,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F1ce5ab4d-bf49-40c0-8fbe-702711e08153?alt=media&token=8d00f438-041b-4228-bbc9-6d49f1d5a273",
+      "id": 4
+    },
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F7bc63c1c-6dc2-44db-9adb-f0985eb4a927?alt=media&token=2a7a9e93-8ded-45e6-8a50-717e91aac749",
+      "id": 5
     }
   ]
 }

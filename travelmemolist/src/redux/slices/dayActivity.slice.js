@@ -19,6 +19,10 @@ const initialState = {
     loading: false,
     error: null,
   },
+  deleteActivity: {
+    loading: false,
+    error: null,
+  },
 };
 
 export const dayActivitySlice = createSlice({
@@ -39,6 +43,21 @@ export const dayActivitySlice = createSlice({
       const { error } = action.payload;
       state.dayActivityList.loading = false;
       state.dayActivityList.error = error;
+    },
+    //deleteActivity
+    deleteActivityRequest: (state, action) => {
+      state.deleteActivity.loading = true;
+      state.deleteActivity.error = null;
+    },
+    deleteActivitySuccess: (state, action) => {
+      const { data } = action.payload;
+      state.deleteActivity.data = data;
+      state.deleteActivity.loading = false;
+    },
+    deleteActivityFailure: (state, action) => {
+      const { error } = action.payload;
+      state.deleteActivity.loading = false;
+      state.deleteActivity.error = error;
     },
     //getActivity
     getActivityRequest: (state, action) => {
@@ -101,6 +120,9 @@ export const {
   createActivityRequest,
   createActivitySuccess,
   createActivityFailure,
+  deleteActivityFailure,
+  deleteActivityRequest,
+  deleteActivitySuccess,
 } = dayActivitySlice.actions;
 
 export default dayActivitySlice.reducer;
