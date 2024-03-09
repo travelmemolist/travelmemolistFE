@@ -1,0 +1,116 @@
+{
+  "users": [],
+  "dayActivities": [
+    {
+      "id": 1,
+      "name": "Đi dạo",
+      "day": 1,
+      "currentDay": "07/03/2024",
+      "scheduleId": 1
+    },
+    {
+      "id": 2,
+      "name": "",
+      "day": 2,
+      "currentDay": "08/03/2024",
+      "scheduleId": 1
+    },
+    {
+      "id": 3,
+      "name": "",
+      "day": 3,
+      "currentDay": "09/03/2024",
+      "scheduleId": 1
+    },
+    {
+      "id": 4,
+      "name": "",
+      "day": 4,
+      "currentDay": "10/03/2024",
+      "scheduleId": 1
+    }
+  ],
+  "activities": [
+    {
+      "id": 1,
+      "dayActivityId": 1,
+      "name": "Dạo cầu rồng",
+      "startTime": "2024-03-08T03:55:11.500Z",
+      "endTime": "2024-03-08T06:50:38.200Z"
+    },
+    {
+      "id": 2,
+      "dayActivityId": 3,
+      "name": "Đi Bà Nà Hill",
+      "startTime": "1970-01-03T10:00:00.000Z",
+      "endTime": "1970-01-03T10:25:00.000Z"
+    },
+    {
+      "id": 3,
+      "dayActivityId": 3,
+      "name": "Đảo sơn trà",
+      "startTime": "2024-03-08T11:25:12.212Z",
+      "endTime": "2024-03-08T12:18:19.747Z"
+    },
+    {
+      "dayActivityID": null,
+      "name": "ăn vẹt",
+      "describe": "aaaa",
+      "timeStart": "2024-03-07T18:01:02.000Z",
+      "timeEnd": "2024-03-07T23:06:06.000Z",
+      "id": 4
+    },
+    {
+      "dayActivityId": 1,
+      "name": "ăn vẹt cầu sông hàn",
+      "describe": "111",
+      "timeStart": "2024-03-08T07:01:30.400Z",
+      "timeEnd": "2024-03-08T11:03:03.000Z",
+      "id": 5,
+      "startTime": "2024-03-08T04:31:27.788Z",
+      "endTime": "2024-03-08T07:31:27.788Z"
+    },
+    {
+      "startTime": "2024-03-07T18:02:02.000Z",
+      "endTime": "2024-03-07T20:03:09.000Z",
+      "dayActivityId": 4,
+      "name": "11aasssa",
+      "describe": "âs",
+      "id": 8
+    },
+    {
+      "startTime": "2024-03-08T15:30:35.104Z",
+      "endTime": "2024-03-08T16:35:43.281Z",
+      "dayActivityId": 4,
+      "name": "Đi uống nước mía",
+      "id": 9
+    }
+  ],
+  "images": [
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F97b519bc-3a0b-4dbe-a6c0-09431c294e5b?alt=media&token=a39e9948-f962-491c-b74a-0dd3ec80f2d6",
+      "id": 1
+    },
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F22a68ad4-fee0-46ed-af71-407392460f15?alt=media&token=e9040258-a9f3-4594-b1f3-aad42738a0e6",
+      "id": 2
+    },
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F7e1f3e5b-9dd2-4a40-a768-7d5a1850825f?alt=media&token=1d3f7f2f-714a-40fa-96a3-532f385d725e",
+      "id": 3
+    },
+    {
+      "activityId": 2,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F1ce5ab4d-bf49-40c0-8fbe-702711e08153?alt=media&token=8d00f438-041b-4228-bbc9-6d49f1d5a273",
+      "id": 4
+    },
+    {
+      "activityId": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F7bc63c1c-6dc2-44db-9adb-f0985eb4a927?alt=media&token=2a7a9e93-8ded-45e6-8a50-717e91aac749",
+      "id": 5
+    }
+  ]
+}

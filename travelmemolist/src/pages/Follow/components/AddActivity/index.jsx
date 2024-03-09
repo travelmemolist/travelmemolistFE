@@ -1,12 +1,50 @@
-import { Button, Col, Input, Modal, Row, Form, TimePicker } from "antd";
+import {
+  Button,
+  Col,
+  Input,
+  Modal,
+  Row,
+  Form,
+  TimePicker,
+  notification,
+} from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { createActivityRequest } from "../../../../redux/slices/dayActivity.slice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+
 dayjs.extend(customParseFormat);
-function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
+
+function AddActivity({
+  isShowAddActivity,
+  setIsShowAddActivity,
+  indexDayActivity,
+}) {
   const [addForm] = Form.useForm();
 
-  const onChange = (time, timeString) => {
-    console.log(timeString);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    addForm.resetFields();
+  }, []);
+
+  const handleAddActivity = (values) => {
+    if (values.startTime.valueOf() > values.endTime.valueOf()) {
+      notification.error({ message: "Nhập thời gian chưa hợp lệ!" });
+    } else {
+      dispatch(
+        createActivityRequest({
+          data: {
+            dayActivityId: indexDayActivity,
+            startTime: values.startTime,
+            endTime: values.endTime,
+            ...values,
+          },
+        })
+      );
+      setIsShowAddActivity(false);
+    }
   };
   return (
     <Modal
@@ -20,7 +58,7 @@ function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
         form={addForm}
         name="addActivity"
         layout="vertical"
-        // onFinish={(values) => handleCreateAddress(values)}
+        onFinish={(values) => handleAddActivity(values)}
       >
         <Row gutter={[16, 16]}>
           <Col span={24}>
@@ -50,7 +88,7 @@ function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
           </Col>
           <Col span={12}>
             <Form.Item
-              name="timeStart"
+              name="startTime"
               label="Thời gian bắt đầu"
               rules={[
                 {
@@ -59,15 +97,12 @@ function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
                 },
               ]}
             >
-              <TimePicker
-                onChange={onChange}
-                defaultOpenValue={dayjs("00:00:00", "HH:mm:ss")}
-              />
+              <TimePicker />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              name="timeEnd"
+              name="endTime"
               label="Thời gian kết thúc"
               rules={[
                 {
@@ -76,10 +111,7 @@ function AddActivity({ isShowAddActivity, setIsShowAddActivity }) {
                 },
               ]}
             >
-              <TimePicker
-                onChange={onChange}
-                defaultOpenValue={dayjs("00:00:00", "HH:mm:ss")}
-              />
+              <TimePicker />
             </Form.Item>
           </Col>
           <Col span={12}>

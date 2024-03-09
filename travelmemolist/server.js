@@ -18,7 +18,6 @@ server.use((req, res, next) => {
     req.body.updatedAt = dayjs().valueOf();
     req.body.isDelete = false;
   }
-
   if (req.method === "PUT") {
     req.method = "PATCH";
   }
