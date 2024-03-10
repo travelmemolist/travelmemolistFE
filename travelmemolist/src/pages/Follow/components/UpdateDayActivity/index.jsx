@@ -1,16 +1,5 @@
-import {
-  Button,
-  Col,
-  Input,
-  Modal,
-  Row,
-  Form,
-  TimePicker,
-  notification,
-} from "antd";
-import { useEffect } from "react";
+import { Button, Col, Input, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
 
 import { updateDayActivityRequest } from "../../../../redux/slices/dayActivity.slice";
 
@@ -22,7 +11,14 @@ function UpdateDayActivity({
 }) {
   const dispatch = useDispatch();
 
-  const handleUpdateDayActivity = (values) => {};
+  const handleUpdateDayActivity = () => {
+    dispatch(
+      updateDayActivityRequest({
+        data: dayActivity,
+      })
+    );
+    setIsShowUpdateDayActivity(false);
+  };
 
   const handleOnChange = (e) => {
     setDayActivity({
@@ -32,17 +28,25 @@ function UpdateDayActivity({
   };
   return (
     <Modal
-      title="Chỉnh sửa ngày "
+      title="Chỉnh sửa tiêu đề "
       open={isShowUpdateDayActivity}
       onCancel={() => setIsShowUpdateDayActivity(false)}
       footer={null}
-      width={700}
+      width={300}
     >
       <Input
         onChange={(e) => handleOnChange(e)}
         placeholder="Nhập tiêu đề"
         value={dayActivity.name}
       />
+      <Button
+        onClick={() => handleUpdateDayActivity()}
+        block
+        type="primary"
+        style={{ margin: "20px 0 0 0" }}
+      >
+        Lưu
+      </Button>
     </Modal>
   );
 }

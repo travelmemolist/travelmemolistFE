@@ -1,16 +1,17 @@
 {
   "users": [],
+  "schedules": [],
   "dayActivities": [
     {
       "id": 1,
-      "name": "Đi dạo",
+      "name": "Đi dạo ",
       "day": 1,
       "currentDay": "07/03/2024",
       "scheduleId": 1
     },
     {
       "id": 2,
-      "name": "",
+      "name": "Đi ăn",
       "day": 2,
       "currentDay": "08/03/2024",
       "scheduleId": 1
@@ -111,6 +112,11 @@
       "activityId": 1,
       "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F7bc63c1c-6dc2-44db-9adb-f0985eb4a927?alt=media&token=2a7a9e93-8ded-45e6-8a50-717e91aac749",
       "id": 5
+    },
+    {
+      "activityId": 5,
+      "image": "https://firebasestorage.googleapis.com/v0/b/travelmemolist.appspot.com/o/files%2F1d202bed-2673-4c1e-bb1e-8a6e7ffe6919?alt=media&token=afca20d3-1b6d-4e49-ad90-5925d96f287a",
+      "id": 6
     }
   ]
 }

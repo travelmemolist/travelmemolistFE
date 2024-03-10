@@ -22,6 +22,7 @@ import duration from "dayjs/plugin/duration";
 import moment from "moment";
 
 import { getMemoryRequest } from "../../redux/slices/memory.slice";
+import { useParams } from "react-router-dom";
 
 dayjs.extend(duration);
 function FollowPage() {
@@ -49,6 +50,8 @@ function FollowPage() {
   });
 
   const dispatch = useDispatch();
+
+  const params = useParams();
 
   useEffect(() => {
     dispatch(getDayActivityListRequest());

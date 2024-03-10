@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { notification } from "antd";
 
 const initialState = {
   dayActivityList: {
@@ -20,6 +21,10 @@ const initialState = {
     error: null,
   },
   deleteActivity: {
+    loading: false,
+    error: null,
+  },
+  updateDayActivity: {
     loading: false,
     error: null,
   },
@@ -104,6 +109,27 @@ export const dayActivitySlice = createSlice({
       state.updateActivityData.loading = false;
       state.updateActivityData.error = error;
     },
+    //updateDayActivity
+    updateDayActivityRequest: (state, action) => {
+      state.updateDayActivity.loading = true;
+      state.updateDayActivity.error = null;
+    },
+    updateDayActivitySuccess: (state, action) => {
+      state.updateDayActivity.loading = false;
+      const { data } = action.payload;
+      // const index = state.dayActivityList.data.findIndex(
+      //   (item) => item.id === data.id
+      // );
+      // state.dayActivityList.data.splice(index, 1, data);
+      notification.success({
+        message: "Cập nhật tiêu đề thành công thành công!",
+      });
+    },
+    updateDayActivityFailure: (state, action) => {
+      const { error } = action.payload;
+      state.updateDayActivity.loading = false;
+      state.updateDayActivity.error = error;
+    },
   },
 });
 
@@ -123,6 +149,9 @@ export const {
   deleteActivityFailure,
   deleteActivityRequest,
   deleteActivitySuccess,
+  updateDayActivityRequest,
+  updateDayActivitySuccess,
+  updateDayActivityFailure,
 } = dayActivitySlice.actions;
 
 export default dayActivitySlice.reducer;

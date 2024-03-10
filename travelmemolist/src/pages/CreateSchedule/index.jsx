@@ -1,10 +1,29 @@
-import { Col, Input, Row, Form, DatePicker, Space, Button } from "antd";
+import { Col, Input, Row, Form, DatePicker, Button, notification } from "antd";
 import * as S from "./style";
+
+import { createScheduleRequest } from "../../redux/slices/schedule.slice";
+import { useDispatch } from "react-redux";
+import { generatePath, useNavigate } from "react-router-dom";
+import { ROUTES } from "constants/routes";
 function CreateSchedule() {
   const [createForm] = Form.useForm();
   const { TextArea } = Input;
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleCreateSchedule = (values) => {
+    if (values.startDay.isAfter(values.endDay)) {
+      notification.error({ message: "Ngày BD > Ngày KT" });
+    } else {
+      dispatch(
+        createScheduleRequest({
+          data: { ...values },
+          callback: (id) =>
+            navigate(generatePath(ROUTES.USER.FOLLOW, { id: id })),
+        })
+      );
+    }
   };
 
   return (
@@ -19,7 +38,7 @@ function CreateSchedule() {
             form={createForm}
             layout="vertical"
             action="/pay"
-            // onFinish={(values) => handleSubmitCheckoutForm(values)}
+            onFinish={(values) => handleCreateSchedule(values)}
           >
             <Row
               gutter={[16, 16]}
@@ -38,7 +57,7 @@ function CreateSchedule() {
               <Col span={24}>
                 <Form.Item
                   label="Tên lịch trình"
-                  name="name"
+                  name="title"
                   rules={[{ required: true, message: "Bắt buộc!" }]}
                 >
                   <Input />
@@ -46,26 +65,26 @@ function CreateSchedule() {
               </Col>
               <Col span={12}>
                 <Form.Item
-                  label="Thời gian bắt đầu"
-                  name="name"
+                  label="Ngày bắt đầu"
+                  name="startDay"
                   rules={[{ required: true, message: "Bắt buộc!" }]}
                 >
-                  <DatePicker showTime onChange={onChange} />
+                  <DatePicker showTime format={"DD/MM/YYYY"} />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
                   label="Thời gian kết thúc"
-                  name="name"
+                  name="endDay"
                   rules={[{ required: true, message: "Bắt buộc!" }]}
                 >
-                  <DatePicker showTime onChange={onChange} />
+                  <DatePicker format={"DD/MM/YYYY"} showTime />
                 </Form.Item>
               </Col>
               <Col span={24}>
                 <Form.Item
                   label="Mô tả"
-                  name="name"
+                  name="description"
                   rules={[{ required: true, message: "Bắt buộc!" }]}
                 >
                   <TextArea rows={4} />
