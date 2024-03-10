@@ -1,5 +1,5 @@
 import { put, takeEvery } from "redux-saga/effects";
-import axios from "axios";
+import axios from "../../config/AxiosConfig";
 import {
   registerRequest,
   registerSuccess,
@@ -21,6 +21,7 @@ function* registerSaga(action) {
     yield put(registerFailure({ error: "Lỗi" }));
   }
 }
+
 
 export default function* ReviewSaga() {
   yield takeEvery(registerRequest, registerSaga);

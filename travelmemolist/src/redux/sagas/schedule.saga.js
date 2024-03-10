@@ -1,5 +1,5 @@
 import { put, takeEvery } from "redux-saga/effects";
-import axios from "axios";
+import axios from "../../config/AxiosConfig";
 import {
   createScheduleRequest,
   createScheduleSuccess,
