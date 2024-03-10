@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
 import { updateActivityRequest } from "../../../../redux/slices/dayActivity.slice";
-import dayjs from "dayjs";
 
 function UpdateActivity({
   isShowUpdateActivity,
@@ -103,7 +102,6 @@ function UpdateActivity({
                   message: "Thời gian bắt đầu bắt buộc nhập!",
                 },
               ]}
-              
             >
               <TimePicker format={"HH:mm"} />
             </Form.Item>

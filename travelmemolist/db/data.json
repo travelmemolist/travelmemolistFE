@@ -1,5 +1,19 @@
 {
-  "users": [],
+  "users": [
+    {
+      "user": "ádadsads",
+      "password": "adsdsads",
+      "id": 1
+    },
+    {
+      "user": "áddsaaddsa",
+      "password": "áddasads",
+      "id": 2
+    },
+    {
+      "id": 3
+    }
+  ],
   "schedules": [],
   "dayActivities": [
     {
