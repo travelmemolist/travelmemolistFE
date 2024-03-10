@@ -22,7 +22,12 @@ export const authSlice = createSlice({
       state.register.error = null;
     },
     registerSuccess: (state, action) => {
+      const {message,status} = action.payload;
+      if(status === 409){
+          state.register.error = message;
+      }
       state.register.loading = false;
+
     },
     registerFailure: (state, action) => {
       const { error } = action.payload;

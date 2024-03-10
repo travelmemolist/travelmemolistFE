@@ -41,21 +41,12 @@ function Login() {
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <Form.Item
-              name="user"
+              name="username"
               rules={[
                 {
                   required: true,
                   whitespace: true,
                   message: "vui lòng nhập username!",
-                },
-                {
-                  max: 40,
-                  min: 6,
-                  message: "Điền từ 6 -> 40 kí tự",
-                },
-                {
-                  pattern: "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$",
-                  message: "username không hợp lệ!",
                 },
               ]}
             >
@@ -70,12 +61,7 @@ function Login() {
                   required: true,
                   whitespace: true,
                   message: "vui lòng nhập password!",
-                },
-                {
-                  pattern:
-                    "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
-                  message: "mật khẩu yếu!",
-                },
+                }
               ]}
             >
               <Input

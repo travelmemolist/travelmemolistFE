@@ -41,7 +41,7 @@ function Register() {
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <Form.Item
-              name="user"
+              name="username"
               rules={[
                 {
                   required: true,
@@ -54,7 +54,7 @@ function Register() {
                   message: "Điền từ 6 -> 40 kí tự",
                 },
                 {
-                  pattern: "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$",
+                  // pattern: "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$",
                   message: "username không hợp lệ!",
                 },
               ]}
@@ -72,8 +72,8 @@ function Register() {
                   message: "vui lòng nhập password!",
                 },
                 {
-                  pattern:
-                    "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
+                  // pattern:
+                  //   "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$",
                   message: "mật khẩu yếu!",
                 },
               ]}
