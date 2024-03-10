@@ -16,6 +16,9 @@ import {
   deleteActivityFailure,
   deleteActivityRequest,
   deleteActivitySuccess,
+  updateDayActivityRequest,
+  updateDayActivitySuccess,
+  updateDayActivityFailure,
 } from "../slices/dayActivity.slice";
 import { notification } from "antd";
 
@@ -92,6 +95,22 @@ function* deleteActivitySaga(action) {
     yield put(deleteActivityFailure("Đã có lỗi xảy ra!"));
   }
 }
+function* updateDayActivitySaga(action) {
+  try {
+    const { data } = action.payload;
+
+    const result = yield axios.patch(
+      `http://localhost:4000/dayActivities/${data.id}`,
+      {
+        name: data.name,
+      }
+    );
+    yield put(updateDayActivitySuccess({ data: result.data }));
+    yield put(getDayActivityListRequest());
+  } catch (e) {
+    yield put(updateDayActivityFailure("Đã có lỗi xảy ra!"));
+  }
+}
 
 export default function* ReviewSaga() {
   yield takeEvery(getDayActivityListRequest, getDayActivityListSaga);
@@ -99,4 +118,5 @@ export default function* ReviewSaga() {
   yield takeEvery(getActivityRequest, getActivitySaga);
   yield takeEvery(createActivityRequest, createActivitySaga);
   yield takeEvery(deleteActivityRequest, deleteActivitySaga);
+  yield takeEvery(updateDayActivityRequest, updateDayActivitySaga);
 }
