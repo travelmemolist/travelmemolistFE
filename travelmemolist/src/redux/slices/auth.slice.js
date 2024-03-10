@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  userInfo: {},
   register: {
+    loading: false,
+    error: null,
+  },
+  login: {
     loading: false,
     error: null,
   },
@@ -24,10 +29,31 @@ export const authSlice = createSlice({
       state.register.loading = false;
       state.register.error = error;
     },
+    //login
+    loginRequest: (state, action) => {
+      state.login.loading = true;
+      state.login.error = null;
+    },
+    loginSuccess: (state, action) => {
+      const { data } = action.payload;
+      state.login.loading = false;
+      state.userInfo = data;
+    },
+    loginFailure: (state, action) => {
+      const { error } = action.payload;
+      state.login.loading = false;
+      state.login.error = error;
+    },
   },
 });
 
-export const { registerRequest, registerSuccess, registerFailure } =
-  authSlice.actions;
+export const {
+  registerRequest,
+  registerSuccess,
+  registerFailure,
+  loginRequest,
+  loginSuccess,
+  loginFailure,
+} = authSlice.actions;
 
 export default authSlice.reducer;
