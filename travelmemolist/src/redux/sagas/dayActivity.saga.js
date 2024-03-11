@@ -25,13 +25,8 @@ import { notification } from "antd";
 function* getDayActivityListSaga(action) {
   try {
     // const { scheduleId } = action.payload;
-    const result = yield axios.get("/dayActivities", {
-      params: {
-        // scheduleId: scheduleId,
-        _embed: "activities",
-      },
-    });
-    yield put(getDayActivityListSuccess({ data: result.data }));
+    const result = yield axios.get(`/schedules/4`);
+    yield put(getDayActivityListSuccess({ data: result }));
   } catch (e) {
     yield put(getDayActivityListFailure({ error: "Lỗi" }));
   }
@@ -98,12 +93,9 @@ function* updateDayActivitySaga(action) {
   try {
     const { data } = action.payload;
 
-    const result = yield axios.patch(
-      `/dayofactiviesa/${data.id}`,
-      {
-        nameDayActivities : data.name,
-      }
-    );
+    const result = yield axios.patch(`/dayofactiviesa/${data.id}`, {
+      nameDayActivities: data.name,
+    });
     yield put(updateDayActivitySuccess({ data: result.data }));
     yield put(getDayActivityListRequest());
   } catch (e) {

@@ -43,7 +43,7 @@ function FollowPage() {
   const [dayActivity, setDayActivity] = useState({});
 
   const { dayActivityList } = useSelector((state) => state.dayActivity);
-  const {userInfo} = useSelector((state)=> state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const ref = useRef(null);
   outsideClick(ref, () => {
@@ -58,17 +58,14 @@ function FollowPage() {
 
   useEffect(() => {
     dispatch(getDayActivityListRequest());
-  
   }, []);
-useEffect(() => {
-  if(!userInfo.data?.userId) {
-    navigate(ROUTES.USER.LOGIN);
-  }
-  else {
-    navigate(ROUTES.USER.FOLLOW);
-
-  }
-}, [userInfo.data?.userId]);
+  useEffect(() => {
+    if (!userInfo.data?.userId) {
+      navigate(ROUTES.USER.LOGIN);
+    } else {
+      navigate(ROUTES.USER.FOLLOW);
+    }
+  }, [userInfo.data?.userId]);
   const renderDayActivityList = useMemo(() => {
     return dayActivityList?.data?.map((item, index) => {
       return (
@@ -76,7 +73,7 @@ useEffect(() => {
           <S.ActivityDateWrapper>
             <S.HeadingActivity justify={"space-between"}>
               <p>
-                Ngày {item?.day}
+                {item?.day}
                 {item?.name?.length > 0 && <span> - {item.name}</span>}
               </p>
               <FaPen
@@ -88,13 +85,12 @@ useEffect(() => {
               />
             </S.HeadingActivity>
             <S.DateActivity>
-              {dayjs(item.currentDay, "DD/MM/YYYY").format("DD/MM/YYYY")},
-              {dayjs(item.currentDay, "DD/MM/YYYY").format("dddd")}
+              {dayjs(item.currentDay).format("DD/MM/YYYY, dddd")}
             </S.DateActivity>
           </S.ActivityDateWrapper>
           {item?.activities?.length != 0 && (
             <S.ActivityList gutter={[16, 16]}>
-              {item.activities.map((activity, activityIndex) => {
+              {item.activities?.map((activity, activityIndex) => {
                 return (
                   <S.ActivityItem span={24} key={activityIndex}>
                     <S.ActivityWrapper>

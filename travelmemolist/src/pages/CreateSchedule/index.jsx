@@ -22,8 +22,9 @@ function CreateSchedule() {
       dispatch(
         createScheduleRequest({
           data: { ...values, userId: userInfo.data.userId },
-          callback: (id) =>
-            navigate(generatePath(ROUTES.USER.FOLLOW, { id: id })),
+          callback: (id) => {
+            navigate(generatePath(ROUTES.USER.FOLLOW, { id: id }));
+          },
         })
       );
     }

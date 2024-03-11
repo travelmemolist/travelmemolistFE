@@ -11,19 +11,19 @@ import {
 import { notification } from "antd";
 
 function* registerSaga(action) {
-  const {username,password} = action.payload.data;
+  const { username, password } = action.payload.data;
   try {
-    const result = yield axios.post('/register',{
-    username,
-    password
+    const result = yield axios.post("/register", {
+      username,
+      password,
     });
-    if(result.status === 409){
-    yield put(registerFailure({status:result.status,message:result.message }));
+    if (result.status === 409) {
+      yield put(
+        registerFailure({ status: result.status, message: result.message })
+      );
+    } else {
+      yield put(registerSuccess({}));
     }
-    else {
-    yield put(registerSuccess({ }));
-    }
-    
   } catch (e) {
     yield put(registerFailure({ error: "Lỗi" }));
   }
@@ -33,11 +33,14 @@ function* LoginSaga(action) {
     const { data, callback } = action.payload;
     const result = yield axios.post("/login", data);
     if (result.status === 200) {
-    yield put(loginSuccess({ data: result.data }));
-      localStorage.setItem('Authorization', result.data.accessToken);
-      localStorage.setItem("userInfo",JSON.stringify(result.data.accountInfoDTO));  
-    yield callback();
-    }else{
+      yield put(loginSuccess({ data: result.data }));
+      localStorage.setItem("jwt", result.data.accessToken);
+      localStorage.setItem(
+        "userInfo",
+        JSON.stringify(result.data.accountInfoDTO)
+      );
+      yield callback();
+    } else {
       yield put(loginFailure({ error: result.message }));
     }
   } catch (e) {

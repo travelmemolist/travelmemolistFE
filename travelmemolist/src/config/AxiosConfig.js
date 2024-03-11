@@ -1,18 +1,26 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080/api',
+  baseURL: "http://localhost:8080/api",
 });
 instance.defaults.withCredentials = true;
-// instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`
-instance.interceptors.request.use(function (config) {
+instance.defaults.headers.common[
+  "Authorization"
+] = `Bearer ${localStorage.getItem("jwt")}`;
+instance.interceptors.request.use(
+  function (config) {
     return config;
-}, function (error) {
+  },
+  function (error) {
     return Promise.reject(error);
-});
-instance.interceptors.response.use(function (response) {
+  }
+);
+instance.interceptors.response.use(
+  function (response) {
     return response.data;
-}, function (error) {
+  },
+  function (error) {
     return error.response.data;
-});
+  }
+);
 export default instance;
