@@ -2,9 +2,10 @@ import { Col, Input, Row, Form, DatePicker, Button, notification } from "antd";
 import * as S from "./style";
 
 import { createScheduleRequest } from "../../redux/slices/schedule.slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
+
 function CreateSchedule() {
   const [createForm] = Form.useForm();
   const { TextArea } = Input;
@@ -12,13 +13,15 @@ function CreateSchedule() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { userInfo } = useSelector((state) => state.auth);
+
   const handleCreateSchedule = (values) => {
     if (values.startDay.isAfter(values.endDay)) {
       notification.error({ message: "Ngày BD > Ngày KT" });
     } else {
       dispatch(
         createScheduleRequest({
-          data: { ...values },
+          data: { ...values, userId: userInfo.data.userId },
           callback: (id) =>
             navigate(generatePath(ROUTES.USER.FOLLOW, { id: id })),
         })
