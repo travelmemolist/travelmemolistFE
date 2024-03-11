@@ -10,10 +10,14 @@ import Login from "pages/Login";
 import Register from "pages/Register";
 
 import * as S from "./style";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import {updateUserInfo} from "../redux/slices/auth.slice"
 
 function App() {
   const [isShowLoading, setIsShowLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   const {
     dayActivityList,
@@ -43,6 +47,11 @@ function App() {
     uploadMemory.loading,
     memoryList.loading,
   ]);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    dispatch(updateUserInfo({data:{...userInfo}}))
+  }, []);
   return (
     
     <>

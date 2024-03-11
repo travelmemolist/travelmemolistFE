@@ -22,8 +22,8 @@ function UpdateDayActivity({
 
   const handleOnChange = (e) => {
     setDayActivity({
-      id: dayActivity.id,
-      name: e.target.value,
+      idDayActivities: dayActivity.id,
+      nameDayActivities: e.target.value,
     });
   };
   return (

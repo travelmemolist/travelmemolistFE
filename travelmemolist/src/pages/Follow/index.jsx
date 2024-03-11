@@ -22,7 +22,8 @@ import duration from "dayjs/plugin/duration";
 import moment from "moment";
 
 import { getMemoryRequest } from "../../redux/slices/memory.slice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "constants/routes";
 
 dayjs.extend(duration);
 function FollowPage() {
@@ -42,6 +43,7 @@ function FollowPage() {
   const [dayActivity, setDayActivity] = useState({});
 
   const { dayActivityList } = useSelector((state) => state.dayActivity);
+  const {userInfo} = useSelector((state)=> state.auth);
 
   const ref = useRef(null);
   outsideClick(ref, () => {
@@ -50,22 +52,32 @@ function FollowPage() {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const params = useParams();
 
   useEffect(() => {
     dispatch(getDayActivityListRequest());
+  
   }, []);
+useEffect(() => {
+  if(!userInfo.data?.userId) {
+    navigate(ROUTES.USER.LOGIN);
+  }
+  else {
+    navigate(ROUTES.USER.FOLLOW);
 
+  }
+}, [userInfo.data?.userId]);
   const renderDayActivityList = useMemo(() => {
-    return dayActivityList.data.map((item, index) => {
+    return dayActivityList?.data?.map((item, index) => {
       return (
         <S.ActivityDateItem key={index} xs={24} sm={12} md={8} lg={6}>
           <S.ActivityDateWrapper>
             <S.HeadingActivity justify={"space-between"}>
               <p>
                 Ngày {item?.day}
-                {item.name.length > 0 && <span> - {item.name}</span>}
+                {item?.name?.length > 0 && <span> - {item.name}</span>}
               </p>
               <FaPen
                 size={10}
@@ -80,7 +92,7 @@ function FollowPage() {
               {dayjs(item.currentDay, "DD/MM/YYYY").format("dddd")}
             </S.DateActivity>
           </S.ActivityDateWrapper>
-          {item.activities.length != 0 && (
+          {item?.activities?.length != 0 && (
             <S.ActivityList gutter={[16, 16]}>
               {item.activities.map((activity, activityIndex) => {
                 return (
@@ -203,7 +215,7 @@ function FollowPage() {
       />
       <S.HeadingFollow>
         <FaArrowLeftLong size={30} />
-        <h1> {dayActivityList.data.length} ngày tại Đà Nẵng</h1>
+        <h1> {dayActivityList?.data?.length} ngày tại Đà Nẵng</h1>
       </S.HeadingFollow>
 
       <S.ActivityDateList gutter={[16, 16]}>

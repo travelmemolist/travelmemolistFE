@@ -63,7 +63,7 @@ function AddActivity({
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <Form.Item
-              name="name"
+              name="activityName"
               label="Tên hoạt động"
               rules={[
                 {
@@ -82,7 +82,7 @@ function AddActivity({
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Form.Item name="describe" label="Mô tả">
+            <Form.Item name="description" label="Mô tả">
               <Input placeholder="Mô tả" />
             </Form.Item>
           </Col>

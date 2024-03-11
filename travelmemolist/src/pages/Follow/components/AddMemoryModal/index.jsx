@@ -43,8 +43,8 @@ function AddMemoryModal({ setIsShowAddMemory, isShowAddMemory, activityId }) {
             dispatch(
               uploadMemoryRequest({
                 data: {
-                  activityId: activityId,
-                  image: url,
+                  activities: activityId,
+                  urlImage: url,
                 },
               })
             );

@@ -54,6 +54,7 @@ input::placeholder {
 .more {
   display: flex;
   padding-top: 40px;
+  align-items: center;
 }
 .more .date-start,
 .date-end,

@@ -1,10 +1,21 @@
+import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import {
   FaChevronLeft,
   FaChevronRight,
-  FaCircleChevronRight,
 } from "react-icons/fa6";
+import { useEffect } from "react";
+
+import {getScheduleListRequest} from "../../redux/slices/schedule.slice"
 function Home() {
+
+  const {userInfo} = useSelector((state)=>state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(userInfo.data) {
+      dispatch(getScheduleListRequest({userId:userInfo.data?.userId}))
+    }
+  }, [userInfo.data]);
   return (
     <div className="content">
       <div className="search-form">

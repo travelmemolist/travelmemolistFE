@@ -25,7 +25,7 @@ import { notification } from "antd";
 function* getDayActivityListSaga(action) {
   try {
     // const { scheduleId } = action.payload;
-    const result = yield axios.get("http://localhost:4000/dayActivities", {
+    const result = yield axios.get("/dayActivities", {
       params: {
         // scheduleId: scheduleId,
         _embed: "activities",
@@ -39,7 +39,6 @@ function* getDayActivityListSaga(action) {
 function* getActivitySaga(action) {
   try {
     const { activityId } = action.payload;
-    yield console.log(activityId);
     const result = yield axios.get(
       `http://localhost:4000/activities/${activityId}`,
       {
@@ -100,9 +99,9 @@ function* updateDayActivitySaga(action) {
     const { data } = action.payload;
 
     const result = yield axios.patch(
-      `http://localhost:4000/dayActivities/${data.id}`,
+      `/dayofactiviesa/${data.id}`,
       {
-        name: data.name,
+        nameDayActivities : data.name,
       }
     );
     yield put(updateDayActivitySuccess({ data: result.data }));

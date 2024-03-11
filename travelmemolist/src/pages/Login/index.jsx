@@ -2,13 +2,18 @@ import { COLOR } from "constants/color";
 import "./style.css";
 import { Button, Col, Form, Input, Row } from "antd";
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { loginRequest } from "../../redux/slices/auth.slice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
+import { useEffect } from "react";
 function Login() {
   const [loginForm] = Form.useForm();
+
+  const {login} = useSelector((state)=>state.auth)
+  const {userInfo} = useSelector((state)=> state.auth);
+
 
   const dispatch = useDispatch();
 
@@ -25,6 +30,20 @@ function Login() {
     );
     loginForm.resetFields();
   };
+
+  useEffect(() => {
+    if(login?.error){
+      loginForm.setFields([{
+        name:"username",
+        errors:[login.error]
+      }])
+    }
+  }, [login.error]);
+  useEffect(() => {
+    if(userInfo.data?.userId) {
+      navigate(ROUTES.USER.HOME);
+    }
+  }, [userInfo.data?.userId]);
 
   return (
     <div iv className="container">

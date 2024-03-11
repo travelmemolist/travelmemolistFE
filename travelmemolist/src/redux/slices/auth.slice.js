@@ -23,16 +23,18 @@ export const authSlice = createSlice({
     },
     registerSuccess: (state, action) => {
       const {message,status} = action.payload;
-      if(status === 409){
-          state.register.error = message;
-      }
       state.register.loading = false;
 
     },
     registerFailure: (state, action) => {
-      const { error } = action.payload;
+      const { error,message,status } = action.payload;
       state.register.loading = false;
+      if(status === 409){
+        state.register.error = message;
+    }
+    else {
       state.register.error = error;
+    }
     },
     //login
     loginRequest: (state, action) => {
@@ -49,6 +51,10 @@ export const authSlice = createSlice({
       state.login.loading = false;
       state.login.error = error;
     },
+    updateUserInfo: (state, action) => {
+      const { data } = action.payload;
+      state.userInfo.data = data;
+    },
   },
 });
 
@@ -59,6 +65,7 @@ export const {
   loginRequest,
   loginSuccess,
   loginFailure,
+  updateUserInfo
 } = authSlice.actions;
 
 export default authSlice.reducer;

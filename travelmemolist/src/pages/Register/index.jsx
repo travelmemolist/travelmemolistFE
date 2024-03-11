@@ -2,15 +2,20 @@ import { COLOR } from "constants/color";
 import "./style.css";
 import { Button, Col, Form, Input, Row } from "antd";
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { registerRequest } from "../../redux/slices/auth.slice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
+import { useEffect } from "react";
 function Register() {
   const [registerForm] = Form.useForm();
 
   const dispatch = useDispatch();
+
+  const {register} = useSelector((state)=>state.auth)
+  const {userInfo} = useSelector((state)=> state.auth);
+
 
   const navigate = useNavigate();
 
@@ -25,7 +30,19 @@ function Register() {
     );
     registerForm.resetFields();
   };
-
+  useEffect(() => {
+    if(register?.error){
+      registerForm.setFields([{
+        name:"username",
+        errors:[register.error]
+      }])
+    }
+  }, [register.error]);
+  useEffect(() => {
+    if(userInfo.data?.userId) {
+      navigate(ROUTES.USER.HOME);
+    }
+  }, [userInfo.data?.userId]);
   return (
     <div iv className="container">
       <div className="header">
