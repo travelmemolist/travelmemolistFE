@@ -44,7 +44,7 @@ function AddMemoryModal({ setIsShowAddMemory, isShowAddMemory, activityId }) {
               uploadMemoryRequest({
                 data: {
                   activities: activityId,
-                  urlImage: url,
+                  urlImages: url,
                 },
               })
             );
@@ -94,11 +94,11 @@ function AddMemoryModal({ setIsShowAddMemory, isShowAddMemory, activityId }) {
   const renderMemory = useMemo(() => {
     return memoryList.data.map((memory) => {
       return (
-        <S.ImageItem key={memory.id} span={8}>
+        <S.ImageItem key={memory.idImage} span={8}>
           <S.Xmark>
             <FaRectangleXmark size={14} color="red" />
           </S.Xmark>
-          <S.Image src={memory.image} />
+          <S.Image src={memory.urlImages} />
         </S.ImageItem>
       );
     });
@@ -113,11 +113,11 @@ function AddMemoryModal({ setIsShowAddMemory, isShowAddMemory, activityId }) {
       <S.Heading>Thêm kỉ niệm</S.Heading>
       <S.ImageList gutter={[16, 16]}>
         {renderMemory}
-        {memoryList.data.length !== memoryList.meta.total && (
+        {/* {memoryList.data.length !== memoryList.meta.total && (
           <S.ShowMore type="primary" onClick={() => handleShowMore()}>
             Hiển thị thêm
           </S.ShowMore>
-        )}
+        )} */}
       </S.ImageList>
       <S.UploadImageWrapper gutter={[16, 16]}>
         <S.ImageUpload lg={6} sm={8} xs={8}>

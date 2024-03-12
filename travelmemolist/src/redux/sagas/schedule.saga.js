@@ -14,8 +14,8 @@ function* createScheduleSaga(action) {
   try {
     const { data, callback } = action.payload;
     const result = yield axios.post("/schedules/create-schedules", data);
-    yield put(createScheduleSuccess({ data: result.data }));
-    // yield callback(result.schedulesId);
+    yield put(createScheduleSuccess({ data: result }));
+    yield callback(result.schedulesId);
     yield notification.success({ message: "tạo lịch trình thành công!" });
   } catch (e) {
     yield put(createScheduleFailure({ error: "Lỗi" }));
@@ -23,9 +23,13 @@ function* createScheduleSaga(action) {
 }
 function* getScheduleListSaga(action) {
   try {
-    const { userId, searchKey, page } = action.payload;
-    const result = yield axios.get(`/schedules?title=&userid=1&page=`);
-    yield console.log(result.content);
+    const { userId, title, page } = action.payload;
+    console.log("getScheduleListSaga", title);
+    const result = yield axios.get(
+      `/schedules?title=${title ? title : ""}&userid=${userId}&page=${
+        page ? page : 0
+      }`
+    );
     yield put(getScheduleListSuccess({ data: result }));
   } catch (e) {
     yield put(getScheduleListFailure({ error: "Lỗi" }));

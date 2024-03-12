@@ -20,12 +20,13 @@ import {
   updateDayActivitySuccess,
   updateDayActivityFailure,
 } from "../slices/dayActivity.slice";
-import { notification } from "antd";
 
 function* getDayActivityListSaga(action) {
   try {
-    // const { scheduleId } = action.payload;
-    const result = yield axios.get(`/schedules/4`);
+    const { scheduleId } = action.payload;
+    const result = yield axios.get(
+      `/schedules/get-day-activities/${scheduleId}`
+    );
     yield put(getDayActivityListSuccess({ data: result }));
   } catch (e) {
     yield put(getDayActivityListFailure({ error: "Lỗi" }));
@@ -34,13 +35,8 @@ function* getDayActivityListSaga(action) {
 function* getActivitySaga(action) {
   try {
     const { activityId } = action.payload;
-    const result = yield axios.get(
-      `http://localhost:4000/activities/${activityId}`,
-      {
-        params: {},
-      }
-    );
-    yield put(getActivitySuccess({ data: result.data }));
+    const result = yield axios.get(`activities/detail/${activityId}`);
+    yield put(getActivitySuccess({ data: result }));
   } catch (e) {
     yield put(getActivityFailure({ error: "Lỗi" }));
   }
@@ -49,16 +45,13 @@ function* updateActivitySaga(action) {
   try {
     const { data } = action.payload;
 
-    const result = yield axios.patch(
-      `http://localhost:4000/activities/${data.id}`,
-      {
-        startTime: data.startTime.valueOf(),
-        endTime: data.endTime.valueOf(),
-        ...data,
-      }
-    );
-    yield put(updateActivitySuccess({ data: result.data }));
-    yield put(getDayActivityListRequest());
+    const result = yield axios.put(`/activities/${data.id}`, {
+      startTime: data.startTime.valueOf(),
+      endTime: data.endTime.valueOf(),
+      ...data,
+    });
+    yield put(updateActivitySuccess({ data: result }));
+    yield put(getDayActivityListRequest({ scheduleId: data.scheduleId }));
   } catch (e) {
     yield put(updateActivityFailure("Đã có lỗi xảy ra!"));
   }
@@ -66,25 +59,25 @@ function* updateActivitySaga(action) {
 function* createActivitySaga(action) {
   try {
     const { data } = action.payload;
-    const result = yield axios.post(`http://localhost:4000/activities`, {
+
+    const result = yield axios.post(`/activities/create-activity`, {
       startTime: data.startTime.valueOf(),
       endTime: data.endTime.valueOf(),
       ...data,
     });
     yield put(createActivitySuccess({ data: result.data }));
-    yield put(getDayActivityListRequest());
+    yield put(getDayActivityListRequest({ scheduleId: data.scheduleId }));
   } catch (e) {
     yield put(createActivityFailure("Đã có lỗi xảy ra!"));
   }
 }
 function* deleteActivitySaga(action) {
   try {
-    const { activityId } = action.payload;
-    const result = yield axios.delete(
-      `http://localhost:4000/activities/${activityId}`
-    );
-    yield put(deleteActivitySuccess({ data: result.data }));
-    yield put(getDayActivityListRequest());
+    const { activityId, scheduleId } = action.payload;
+    console.log(activityId);
+    const result = yield axios.delete(`/activities/${activityId}`);
+    yield put(deleteActivitySuccess({ data: result }));
+    yield put(getDayActivityListRequest({ scheduleId: scheduleId }));
   } catch (e) {
     yield put(deleteActivityFailure("Đã có lỗi xảy ra!"));
   }
@@ -93,11 +86,13 @@ function* updateDayActivitySaga(action) {
   try {
     const { data } = action.payload;
 
-    const result = yield axios.patch(`/dayofactiviesa/${data.id}`, {
-      nameDayActivities: data.name,
+    const result = yield axios.put(`/dayofactivies/update`, {
+      nameDayActivities: data.nameDayActivities,
+      activitiesId: data.idDayActivities,
     });
-    yield put(updateDayActivitySuccess({ data: result.data }));
-    yield put(getDayActivityListRequest());
+
+    yield put(updateDayActivitySuccess({ data: result }));
+    yield put(getDayActivityListRequest({ scheduleId: data.scheduleId }));
   } catch (e) {
     yield put(updateDayActivityFailure("Đã có lỗi xảy ra!"));
   }

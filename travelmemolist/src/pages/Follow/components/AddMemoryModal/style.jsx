@@ -10,6 +10,7 @@ export const ImageList = styled(Row)``;
 export const ImageItem = styled(Col)`
   max-height: 350px;
   position: relative;
+  height: 300px;
 `;
 export const Image = styled.img`
   width: 100%;

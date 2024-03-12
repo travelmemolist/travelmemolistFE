@@ -11,44 +11,43 @@ function Footer() {
               <b>Airtrav</b>
             </p>
           </div>
-          <div>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-            quam aspernatur eaque optio repellendus rem
+          <div style={{ listStyle: "none" }}>
+            <li> Phạm Nguyễn Trường Tín 5135</li>
+            <li> Ngô Văn Trị 3808</li>
+            <li> Võ Nguyễn Phát 7767</li>
           </div>
         </div>
         <div className="services">
           <div>
             <p>
-              <b>Services</b>
+              <b>Dịch vụ</b>
             </p>
           </div>
           <div className="son">
-            <p>Trip Planner</p>
-            <p>Tour Planning</p>
-            <p>Tour Guide</p>
+            <p>Du lịch</p>
+            <p>Lịch trình</p>
           </div>
         </div>
         <div className="support">
           <div>
             <p>
-              <b>Support</b>
+              <b>Hỗ trợ</b>
             </p>
           </div>
           <div className="son">
-            <p>Account</p>
-            <p>Legal</p>
-            <p>Contact</p>
+            <p>Tài khoản</p>
+            <p>Hợp đồng</p>
+            <p>Liên hệ</p>
           </div>
         </div>
         <div className="business">
           <div>
             <p>
-              <b>Business</b>
+              <b>Nghiệp vụ</b>
             </p>
           </div>
           <div className="son">
-            <p>Success</p>
-            <p>About Locato</p>
+            <p>Quảng cáo</p>
             <p>Blog</p>
           </div>
         </div>

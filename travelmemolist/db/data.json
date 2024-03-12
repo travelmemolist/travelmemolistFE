@@ -25,14 +25,14 @@
       "activities": [
         {
           "id": 2,
-          "dayActivityId": 3,
+          "dayActivityId": 1,
           "name": "Đi Bà Nà Hill",
           "startTime": "1970-01-03T10:00:00.000Z",
           "endTime": "1970-01-03T10:25:00.000Z"
         },
         {
           "id": 3,
-          "dayActivityId": 3,
+          "dayActivityId": 1,
           "name": "Đảo sơn trà",
           "startTime": "2024-03-08T11:25:12.212Z",
           "endTime": "2024-03-08T12:18:19.747Z"
@@ -44,21 +44,46 @@
       "name": "Đi ăn",
       "day": 2,
       "currentDay": "08/03/2024",
-      "scheduleId": 1
-    },
-    {
-      "id": 3,
-      "name": "",
-      "day": 3,
-      "currentDay": "09/03/2024",
-      "scheduleId": 1
+      "scheduleId": 1,
+      "activities": [
+        {
+          "id": 2,
+          "dayActivityId": 2,
+          "name": "Đi Bà Nà Hill",
+          "startTime": "1970-01-03T10:00:00.000Z",
+          "endTime": "1970-01-03T10:25:00.000Z"
+        },
+        {
+          "id": 3,
+          "dayActivityId": 2,
+          "name": "Đảo sơn trà",
+          "startTime": "2024-03-08T11:25:12.212Z",
+          "endTime": "2024-03-08T12:18:19.747Z"
+        }
+      ]
     },
     {
       "id": 4,
       "name": "",
       "day": 4,
       "currentDay": "10/03/2024",
-      "scheduleId": 1
+      "scheduleId": 1,
+      "activities": [
+        {
+          "id": 2,
+          "dayActivityId": 4,
+          "name": "Đi Bà Nà Hill",
+          "startTime": "1970-01-03T10:00:00.000Z",
+          "endTime": "1970-01-03T10:25:00.000Z"
+        },
+        {
+          "id": 3,
+          "dayActivityId": 4,
+          "name": "Đảo sơn trà",
+          "startTime": "2024-03-08T11:25:12.212Z",
+          "endTime": "2024-03-08T12:18:19.747Z"
+        }
+      ]
     }
   ],
   "activities": [

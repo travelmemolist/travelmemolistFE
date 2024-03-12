@@ -20,6 +20,7 @@ function AddActivity({
   isShowAddActivity,
   setIsShowAddActivity,
   indexDayActivity,
+  scheduleId,
 }) {
   const [addForm] = Form.useForm();
 
@@ -39,6 +40,7 @@ function AddActivity({
             dayActivityId: indexDayActivity,
             startTime: values.startTime,
             endTime: values.endTime,
+            scheduleId: scheduleId,
             ...values,
           },
         })

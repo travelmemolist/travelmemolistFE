@@ -18,6 +18,7 @@ function UpdateActivity({
   isShowUpdateActivity,
   setIsShowUpdateActivity,
   activityId,
+  scheduleId,
 }) {
   const [updateForm] = Form.useForm();
 
@@ -27,8 +28,8 @@ function UpdateActivity({
   useEffect(() => {
     if (activityId) {
       updateForm.setFieldsValue({
-        name: activity.data.name,
-        describe: activity.data?.describe,
+        activityName: activity.data.activityName,
+        description: activity.data?.description,
         startTime: moment(activity.data.startTime),
         endTime: moment(activity.data.endTime),
       });
@@ -45,6 +46,7 @@ function UpdateActivity({
             id: activityId,
             startTime: values.startTime,
             endTime: values.endTime,
+            scheduleId: scheduleId,
             ...values,
           },
         })

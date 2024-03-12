@@ -56,16 +56,20 @@ function FollowPage() {
 
   const params = useParams();
 
+  const { id } = params;
+
+  const { schedule } = useSelector((state) => state.schedule);
+
   useEffect(() => {
-    dispatch(getDayActivityListRequest());
+    dispatch(getDayActivityListRequest({ scheduleId: id }));
   }, []);
-  useEffect(() => {
-    if (!userInfo.data?.userId) {
-      navigate(ROUTES.USER.LOGIN);
-    } else {
-      navigate(ROUTES.USER.FOLLOW);
-    }
-  }, [userInfo.data?.userId]);
+  // useEffect(() => {
+  //   if (!userInfo.data?.userId) {
+  //     navigate(ROUTES.USER.LOGIN);
+  //   } else {
+  //     navigate(ROUTES.USER.FOLLOW);
+  //   }
+  // }, [userInfo.data?.userId]);
   const renderDayActivityList = useMemo(() => {
     return dayActivityList?.data?.map((item, index) => {
       return (
@@ -74,7 +78,9 @@ function FollowPage() {
             <S.HeadingActivity justify={"space-between"}>
               <p>
                 {item?.day}
-                {item?.name?.length > 0 && <span> - {item.name}</span>}
+                {item?.nameOfDayActivities?.length > 0 && (
+                  <span> - {item.nameOfDayActivities}</span>
+                )}
               </p>
               <FaPen
                 size={10}
@@ -92,72 +98,74 @@ function FollowPage() {
             <S.ActivityList gutter={[16, 16]}>
               {item.activities?.map((activity, activityIndex) => {
                 return (
-                  <S.ActivityItem span={24} key={activityIndex}>
-                    <S.ActivityWrapper>
-                      <S.TitleActivity justify={"space-between"}>
-                        {indexActivity == activityIndex &&
-                          indexDayActivity === index && (
-                            <S.RUDActivity ref={ref}>
-                              <p
-                                onClick={() => {
-                                  setIsShowUpdateActivity(true);
-                                  setIdUpdate(activity.id);
-                                  dispatch(
-                                    getActivityRequest({
-                                      activityId: activity.id,
-                                    })
-                                  );
-                                }}
-                              >
-                                Chỉnh sửa hoạt động
-                              </p>
-                              <p
-                                onClick={() => {
-                                  setIsShowDeleteActivity(true);
-                                  setIndexActivity(activity.id);
-                                }}
-                              >
-                                xóa hoạt động
-                              </p>
-                            </S.RUDActivity>
-                          )}
-                        <div>
-                          <p>{activity.name}</p>
-                          <S.TimeActivity>
-                            {moment(
-                              moment(activity.startTime).valueOf()
-                            ).format("HH:mm")}
-                            -
-                            {moment(moment(activity.endTime).valueOf()).format(
-                              "HH:mm"
+                  activity.isDeleted === false && (
+                    <S.ActivityItem span={24} key={activityIndex}>
+                      <S.ActivityWrapper>
+                        <S.TitleActivity justify={"space-between"}>
+                          {indexActivity == activityIndex &&
+                            indexDayActivity === index && (
+                              <S.RUDActivity ref={ref}>
+                                <p
+                                  onClick={() => {
+                                    setIsShowUpdateActivity(true);
+                                    setIdUpdate(activity.activityId);
+                                    dispatch(
+                                      getActivityRequest({
+                                        activityId: activity.activityId,
+                                      })
+                                    );
+                                  }}
+                                >
+                                  Chỉnh sửa hoạt động
+                                </p>
+                                <p
+                                  onClick={() => {
+                                    setIsShowDeleteActivity(true);
+                                    setIndexActivity(activity.activityId);
+                                  }}
+                                >
+                                  xóa hoạt động
+                                </p>
+                              </S.RUDActivity>
                             )}
-                          </S.TimeActivity>
-                        </div>
-                        <FaEllipsis
-                          size={20}
+                          <div>
+                            <p>{activity.activityName}</p>
+                            <S.TimeActivity>
+                              {moment(
+                                moment(activity.startTime).valueOf()
+                              ).format("HH:mm")}
+                              -
+                              {moment(
+                                moment(activity.endTime).valueOf()
+                              ).format("HH:mm")}
+                            </S.TimeActivity>
+                          </div>
+                          <FaEllipsis
+                            size={20}
+                            onClick={() => {
+                              setIndexActivity(activityIndex);
+                              setIndexDayActivity(index);
+                            }}
+                          />
+                        </S.TitleActivity>
+                        <S.AddMemory
                           onClick={() => {
-                            setIndexActivity(activityIndex);
-                            setIndexDayActivity(index);
+                            setIsShowAddMemory(true);
+                            setIndexActivity(activity.activityId);
+                            dispatch(
+                              getMemoryRequest({
+                                activityId: activity.activityId,
+                                limit: 3,
+                                page: 1,
+                              })
+                            );
                           }}
-                        />
-                      </S.TitleActivity>
-                      <S.AddMemory
-                        onClick={() => {
-                          setIsShowAddMemory(true);
-                          setIndexActivity(activity.id);
-                          dispatch(
-                            getMemoryRequest({
-                              activityId: activity.id,
-                              limit: 3,
-                              page: 1,
-                            })
-                          );
-                        }}
-                      >
-                        Thêm kỉ niệm
-                      </S.AddMemory>
-                    </S.ActivityWrapper>
-                  </S.ActivityItem>
+                        >
+                          Thêm kỉ niệm
+                        </S.AddMemory>
+                      </S.ActivityWrapper>
+                    </S.ActivityItem>
+                  )
                 );
               })}
             </S.ActivityList>
@@ -165,7 +173,7 @@ function FollowPage() {
           <S.AddActivity
             onClick={() => {
               setIsShowAddActivity(true);
-              setIndexDayActivity(index + 1);
+              setIndexDayActivity(item.idDayActivities);
             }}
           >
             <FaPlus size={20} />
@@ -187,6 +195,7 @@ function FollowPage() {
         isShowAddActivity={isShowAddActivity}
         setIsShowAddActivity={setIsShowAddActivity}
         indexDayActivity={indexDayActivity}
+        scheduleId={id}
       />
       <AddMemoryModal
         isShowAddMemory={isShowAddMemory}
@@ -197,21 +206,27 @@ function FollowPage() {
         isShowUpdateActivity={isShowUpdateActivity}
         setIsShowUpdateActivity={setIsShowUpdateActivity}
         activityId={idUpdate}
+        scheduleId={id}
       />
       <DeleteActivityModal
         isShowDeleteActivity={isShowDeleteActivity}
         setIsShowDeleteActivity={setIsShowDeleteActivity}
         activityId={indexActivity}
+        scheduleId={id}
       />
       <UpdateDayActivity
         isShowUpdateDayActivity={isShowUpdateDayActivity}
         setIsShowUpdateDayActivity={setIsShowUpdateDayActivity}
         dayActivity={dayActivity}
         setDayActivity={setDayActivity}
+        scheduleId={id}
       />
       <S.HeadingFollow>
         <FaArrowLeftLong size={30} />
-        <h1> {dayActivityList?.data?.length} ngày tại Đà Nẵng</h1>
+        <h1>
+          {" "}
+          {dayActivityList?.data?.length} ngày tại {schedule.data.title}
+        </h1>
       </S.HeadingFollow>
 
       <S.ActivityDateList gutter={[16, 16]}>

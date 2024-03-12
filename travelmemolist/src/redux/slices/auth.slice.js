@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { notification } from "antd";
 
 const initialState = {
   userInfo: {},
@@ -22,19 +23,18 @@ export const authSlice = createSlice({
       state.register.error = null;
     },
     registerSuccess: (state, action) => {
-      const {message,status} = action.payload;
+      const {} = action.payload;
       state.register.loading = false;
-
+      notification.success({ message: "Đăng ký thành công!" });
     },
     registerFailure: (state, action) => {
-      const { error,message,status } = action.payload;
+      const { error, message, status } = action.payload;
       state.register.loading = false;
-      if(status === 409){
+      if (status === 409) {
         state.register.error = message;
-    }
-    else {
-      state.register.error = error;
-    }
+      } else {
+        state.register.error = error;
+      }
     },
     //login
     loginRequest: (state, action) => {
@@ -55,6 +55,11 @@ export const authSlice = createSlice({
       const { data } = action.payload;
       state.userInfo.data = data;
     },
+    logout: (state, action) => {
+      localStorage.removeItem("jwt");
+      localStorage.removeItem("userInfo");
+      state.userInfo.data = {};
+    },
   },
 });
 
@@ -65,7 +70,8 @@ export const {
   loginRequest,
   loginSuccess,
   loginFailure,
-  updateUserInfo
+  updateUserInfo,
+  logout,
 } = authSlice.actions;
 
 export default authSlice.reducer;

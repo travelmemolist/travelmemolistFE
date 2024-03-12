@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  schedule: {
+    data: {},
+  },
   createSchedule: {
     loading: false,
     error: null,
   },
   scheduleList: {
-    data:[],
+    data: [],
     loading: false,
     error: null,
-    meta:{
-    }
+    meta: {},
   },
 };
 
@@ -24,7 +26,9 @@ export const scheduleSlice = createSlice({
       state.createSchedule.error = null;
     },
     createScheduleSuccess: (state, action) => {
+      const { data } = action.payload;
       state.createSchedule.loading = false;
+      state.schedule.data = data;
     },
     createScheduleFailure: (state, action) => {
       const { error } = action.payload;
@@ -32,16 +36,16 @@ export const scheduleSlice = createSlice({
       state.createSchedule.error = error;
     },
     //create
-  getScheduleListRequest: (state, action) => {
+    getScheduleListRequest: (state, action) => {
       state.scheduleList.loading = true;
       state.scheduleList.error = null;
     },
-  getScheduleListSuccess: (state, action) => {
-    const {data} = action.payload;
+    getScheduleListSuccess: (state, action) => {
+      const { data } = action.payload;
       state.scheduleList.loading = false;
       state.scheduleList.data = data;
     },
-  getScheduleListFailure: (state, action) => {
+    getScheduleListFailure: (state, action) => {
       const { error } = action.payload;
       state.scheduleList.loading = false;
       state.scheduleList.error = error;
@@ -55,7 +59,7 @@ export const {
   createScheduleFailure,
   getScheduleListRequest,
   getScheduleListSuccess,
-  getScheduleListFailure
+  getScheduleListFailure,
 } = scheduleSlice.actions;
 
 export default scheduleSlice.reducer;

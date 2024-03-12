@@ -8,6 +8,7 @@ function UpdateDayActivity({
   setIsShowUpdateDayActivity,
   dayActivity,
   setDayActivity,
+  scheduleId,
 }) {
   const dispatch = useDispatch();
 
@@ -22,8 +23,9 @@ function UpdateDayActivity({
 
   const handleOnChange = (e) => {
     setDayActivity({
-      idDayActivities: dayActivity.id,
+      idDayActivities: dayActivity.idDayActivities,
       nameDayActivities: e.target.value,
+      scheduleId: scheduleId,
     });
   };
   return (

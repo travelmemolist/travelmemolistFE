@@ -8,6 +8,7 @@ function DeleteActivityModal({
   isShowDeleteActivity,
   setIsShowDeleteActivity,
   activityId,
+  scheduleId,
 }) {
   const dispatch = useDispatch();
   return (
@@ -26,7 +27,7 @@ function DeleteActivityModal({
         <S.Back onClick={() => setIsShowDeleteActivity(false)}>Thoát</S.Back>
         <S.Delete
           onClick={() => {
-            dispatch(deleteActivityRequest({ activityId }));
+            dispatch(deleteActivityRequest({ activityId, scheduleId }));
             setIsShowDeleteActivity(false);
           }}
         >
