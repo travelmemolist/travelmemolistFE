@@ -16,7 +16,7 @@ import { updateUserInfo } from "../redux/slices/auth.slice";
 
 function App() {
   const [isShowLoading, setIsShowLoading] = useState(true);
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo, login } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -26,9 +26,12 @@ function App() {
     updateActivityData,
     createActivity,
     deleteActivity,
+    updateDayActivity,
   } = useSelector((state) => state.dayActivity);
   const { uploadMemory, memoryList } = useSelector((state) => state.memory);
-
+  const { scheduleList, createSchedule, schedule } = useSelector(
+    (state) => state.schedule
+  );
   useEffect(() => {
     setIsShowLoading(
       dayActivityList.loading ||
@@ -37,7 +40,12 @@ function App() {
         createActivity.loading ||
         deleteActivity.loading ||
         uploadMemory.loading ||
-        memoryList.loading
+        memoryList.loading ||
+        login.loading ||
+        updateDayActivity.loading ||
+        scheduleList.loading ||
+        createSchedule.loading ||
+        schedule.loading
     );
   }, [
     dayActivityList.loading,
@@ -47,12 +55,22 @@ function App() {
     deleteActivity.loading,
     uploadMemory.loading,
     memoryList.loading,
+    login.loading,
+    updateDayActivity.loading,
+    scheduleList.loading,
+    createSchedule.loading,
+    schedule.loading,
   ]);
 
   useEffect(() => {
-    const info = JSON.parse(localStorage.getItem("userInfo"));
-    if (info) {
-      dispatch(updateUserInfo({ data: { ...info } }));
+    if (
+      window.location.pathname !== "./login" &&
+      window.location.pathname !== "./register"
+    ) {
+      const info = JSON.parse(localStorage.getItem("userInfo"));
+      if (info) {
+        dispatch(updateUserInfo({ data: { ...info } }));
+      }
     }
   }, [userInfo.data?.userId]);
   return (
