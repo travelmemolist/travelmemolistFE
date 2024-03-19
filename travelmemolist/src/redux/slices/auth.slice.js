@@ -44,7 +44,7 @@ export const authSlice = createSlice({
     loginSuccess: (state, action) => {
       const { data } = action.payload;
       state.login.loading = false;
-      state.userInfo = data;
+      state.userInfo.data = data?.accountInfoDTO;
     },
     loginFailure: (state, action) => {
       const { error } = action.payload;
@@ -59,6 +59,7 @@ export const authSlice = createSlice({
       localStorage.removeItem("jwt");
       localStorage.removeItem("userInfo");
       state.userInfo.data = {};
+      state.userInfo.accountInfoDTO = {};
     },
   },
 });

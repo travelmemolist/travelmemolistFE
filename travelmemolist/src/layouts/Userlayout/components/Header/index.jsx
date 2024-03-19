@@ -40,7 +40,7 @@ function Header() {
             <li>Kỉ niệm</li>
             <li>Hỗ trợ</li>
             <li>Thông tin cá nhân</li>
-            {userInfo?.data?.userId ? (
+            {userInfo?.data?.userId || userInfo?.accountInfoDTO?.userId ? (
               <li
                 onClick={() => {
                   dispatch(logout({}));

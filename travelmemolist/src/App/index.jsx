@@ -12,10 +12,11 @@ import Register from "pages/Register";
 import * as S from "./style";
 import { useDispatch, useSelector } from "react-redux";
 
-import {updateUserInfo} from "../redux/slices/auth.slice"
+import { updateUserInfo } from "../redux/slices/auth.slice";
 
 function App() {
   const [isShowLoading, setIsShowLoading] = useState(true);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -49,11 +50,12 @@ function App() {
   ]);
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    dispatch(updateUserInfo({data:{...userInfo}}))
-  }, []);
+    const info = JSON.parse(localStorage.getItem("userInfo"));
+    if (info) {
+      dispatch(updateUserInfo({ data: { ...info } }));
+    }
+  }, [userInfo.data?.userId]);
   return (
-    
     <>
       <S.LoadingWrapper isShowLoading={isShowLoading}>
         <S.Loading className="loading">
