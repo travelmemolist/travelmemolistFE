@@ -14,7 +14,6 @@ function* uploadMemorySaga(action) {
     const { data } = action.payload;
 
     const result = yield axios.post("/images/create_images", data);
-    console.log(data);
     yield put(uploadMemorySuccess({ data: result.data }));
   } catch (e) {
     yield put(uploadMemoryFailure({ error: "Lỗi" }));

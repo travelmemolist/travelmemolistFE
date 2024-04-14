@@ -63,13 +63,6 @@ function FollowPage() {
   useEffect(() => {
     dispatch(getDayActivityListRequest({ scheduleId: id }));
   }, []);
-  // useEffect(() => {
-  //   if (!userInfo.data?.userId) {
-  //     navigate(ROUTES.USER.LOGIN);
-  //   } else {
-  //     navigate(ROUTES.USER.FOLLOW);
-  //   }
-  // }, [userInfo.data?.userId]);
   const renderDayActivityList = useMemo(() => {
     return dayActivityList?.data?.map((item, index) => {
       return (
