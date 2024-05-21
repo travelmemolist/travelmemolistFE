@@ -1,12 +1,32 @@
-import { Col, Input, Row, Form, DatePicker, Button, notification } from "antd";
+import {
+  Col,
+  Input,
+  Row,
+  Form,
+  DatePicker,
+  Button,
+  notification,
+  List,
+} from "antd";
 import * as S from "./style";
 
 import { createScheduleRequest } from "../../redux/slices/schedule.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
+import { useState } from "react";
+import Weather from "components/Weather";
+import Map from "components/Map";
+import axios from "axios";
+
+const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
 
 function CreateSchedule() {
+  const [searchText, setSearchText] = useState("");
+  const [listPlace, setListPlace] = useState([]);
+  const [selectPosition, setSelectPosition] = useState(null);
+  const [cityData, setCityData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
   const [createForm] = Form.useForm();
   const { TextArea } = Input;
 
@@ -30,35 +50,91 @@ function CreateSchedule() {
     }
   };
 
+  const handleSearch = () => {
+    const params = {
+      q: searchText,
+      format: "json",
+      addressdetails: 1,
+      polygon_geojson: 0,
+    };
+    const queryString = new URLSearchParams(params).toString();
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        setListPlace(JSON.parse(result));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleInputChange = (event) => {
+    setSearchText(event.target.value);
+    handleSearch();
+  };
+
+  const handleSelectPlace = async (place) => {
+    const lat = place.lat;
+    const lon = place.lon;
+    const unit = "metric";
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unit}&APPID=11babbb919460208f1af6c211c8d81cb`
+    );
+    if (response.data) {
+      setCityData(response.data);
+    }
+    const response1 = await axios.get(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${unit}&APPID=11babbb919460208f1af6c211c8d81cb`
+    );
+    if (response1.data) {
+      setForecastData(response1.data);
+    }
+  };
+
   return (
     <S.CreateSchedule>
       <Col span={24}>
         <h1>Thêm lịch trình</h1>
       </Col>
       <S.Content gutter={[16, 16]}>
-        <S.FormCreate span={12}>
-          <Form
-            name="createForm"
-            form={createForm}
-            layout="vertical"
-            action="/pay"
-            onFinish={(values) => handleCreateSchedule(values)}
-          >
-            <Row
-              gutter={[16, 16]}
-              justify="space-between"
-              style={{ marginTop: "15px" }}
-            >
-              <Col span={24}>
+        <S.FormCreate span={24}>
+          <Row justify="space-between">
+            <Col span={12}>
+              <Form
+                name="createForm"
+                form={createForm}
+                layout="vertical"
+                action="/pay"
+                onFinish={(values) => handleCreateSchedule(values)}
+              >
                 <Form.Item
                   label="Địa chỉ"
                   name="address"
                   rules={[{ required: true, message: "Bắt buộc!" }]}
                 >
-                  <Input />
+                  <Input value={searchText} onChange={handleInputChange} />
+                  {listPlace.length > 0 && (
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={listPlace}
+                      renderItem={(item) => (
+                        <List.Item
+                          onClick={() => {
+                            setSelectPosition({
+                              lat: item.lat,
+                              lon: item.lon,
+                            });
+                            handleSelectPlace(item);
+                          }}
+                        >
+                          <List.Item.Meta title={item.display_name} />
+                        </List.Item>
+                      )}
+                    />
+                  )}
                 </Form.Item>
-              </Col>
-              <Col span={24}>
                 <Form.Item
                   label="Tên lịch trình"
                   name="title"
@@ -66,26 +142,26 @@ function CreateSchedule() {
                 >
                   <Input />
                 </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label="Ngày bắt đầu"
-                  name="startDay"
-                  rules={[{ required: true, message: "Bắt buộc!" }]}
-                >
-                  <DatePicker showTime format={"DD/MM/YYYY"} />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label="Thời gian kết thúc"
-                  name="endDay"
-                  rules={[{ required: true, message: "Bắt buộc!" }]}
-                >
-                  <DatePicker format={"DD/MM/YYYY"} showTime />
-                </Form.Item>
-              </Col>
-              <Col span={24}>
+                <Row gutter={[16, 16]}>
+                  <Col span={12}>
+                    <Form.Item
+                      label="Ngày bắt đầu"
+                      name="startDay"
+                      rules={[{ required: true, message: "Bắt buộc!" }]}
+                    >
+                      <DatePicker showTime format={"DD/MM/YYYY"} />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      label="Thời gian kết thúc"
+                      name="endDay"
+                      rules={[{ required: true, message: "Bắt buộc!" }]}
+                    >
+                      <DatePicker format={"DD/MM/YYYY"} showTime />
+                    </Form.Item>
+                  </Col>
+                </Row>
                 <Form.Item
                   label="Mô tả"
                   name="description"
@@ -93,21 +169,21 @@ function CreateSchedule() {
                 >
                   <TextArea rows={4} />
                 </Form.Item>
-              </Col>
-              <Col span={24}>
                 <Button type="primary" block htmlType="submit">
                   Thêm mới lịch trình
                 </Button>
-              </Col>
-            </Row>
-          </Form>
+              </Form>
+            </Col>
+            <Col span={12}>
+              <div >
+                <Weather weatherData={cityData} forecastData={forecastData} />
+              </div>
+              <div style={{ width: "100%", height: "30%" }}>
+                <Map selectPosition={selectPosition} />
+              </div>
+            </Col>
+          </Row>
         </S.FormCreate>
-        <S.Image span={12}>
-          <img
-            style={{ height: "80%" }}
-            src="https://s3-alpha-sig.figma.com/img/4bfd/d910/560cb3c4130ce71bd44dcd0c0e3627fc?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZvoXZFv7H8TMPMeg8cWMZtwuejXPE2LVK40zFknlYXPjBFIdZGPgNDvU4nSPKJ64ekrid5c~0vsKdHNvsAgrXykSKd-6TlmZI3SJpIz8QZDgRwqTqaiYVwkPoCAWtYCfa8S3wSnVn9bC0TgWTlRJGDCBx~5CIxMxYYwXVYgS~lwfnqHX2VP6cGp9OphH~~kyvgoUXZTJlAgIk81UCcCMMPuKUa5UYDVoApq4y8b8MCa2ua2yH7whjiOD84J51LYt96qV38cyzFhrj69IgTvvtzZGXambaxKMBa5y~SXRaMVisUOjKjpsXE2vIcwcgqovrS4Vme6eSfUiTIc61XtZNw__"
-          />
-        </S.Image>
       </S.Content>
     </S.CreateSchedule>
   );

@@ -221,10 +221,12 @@ function FollowPage() {
           {dayActivityList?.data?.length} ngày tại {schedule.data.title}
         </h1>
       </S.HeadingFollow>
-
       <S.ActivityDateList gutter={[16, 16]}>
         {renderDayActivityList}
       </S.ActivityDateList>
+      <div style={{textAlign:"center",marginTop:'20px'}}>
+        <button style={{background:"#6c62ff",color:'white',cursor:"pointer",padding:"5px",fontSize:'16px',borderRadius:'6px'}}>Hoàn thành lịch trình</button>
+      </div>
     </S.FollowWrapper>
   );
 }
