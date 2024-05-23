@@ -12,9 +12,11 @@ function Footer() {
             </p>
           </div>
           <div style={{ listStyle: "none" }}>
-            <li> Phạm Nguyễn Trường Tín 5135</li>
-            <li> Ngô Văn Trị 3808</li>
-            <li> Võ Nguyễn Phát 7767</li>
+            <li> Phạm Nguyễn Trường Tín </li>
+            <li> Võ Nguyễn Phát </li>
+            <li>Trần Hữu Hùng</li>
+            <li>Thái Mai Quang</li>
+            <li>Nguyễn Bảo Lưu</li>
           </div>
         </div>
         <div className="services">

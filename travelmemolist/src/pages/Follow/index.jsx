@@ -7,7 +7,9 @@ import AddMemoryModal from "./components/AddMemoryModal";
 import outsideClick from "../../../src/components/outSideClick";
 import DeleteActivityModal from "./components/DeleteActivityModal";
 import UpdateDayActivity from "./components/UpdateDayActivity";
-import { getActivityRequest, getDayActivityListRequest, } from "../../redux/slices/dayActivity.slice";
+import { getActivityRequest, getDayActivityListRequest } from "../../redux/slices/dayActivity.slice";
+import { getScheduleByIdRequest } from "../../redux/slices/schedule.slice";
+
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
 import UpdateActivity from "./components/UpdateActivity";
@@ -51,6 +53,7 @@ function FollowPage() {
   const { schedule } = useSelector((state) => state.schedule);
   useEffect(() => {
     dispatch(getDayActivityListRequest({ scheduleId: id }));
+    dispatch(getScheduleByIdRequest({scheduleId:id}))
   }, []);
   const renderDayActivityList = useMemo(() => {
     return dayActivityList?.data?.map((item, index) => {
@@ -210,7 +213,7 @@ function FollowPage() {
         <FaArrowLeftLong size={30} />
         <h1>
           {" "}
-          {dayActivityList?.data?.length} ngày tại {}
+          {dayActivityList?.data?.length} ngày tại {schedule?.data.title}
         </h1>
       </S.HeadingFollow>
       <S.ActivityDateList gutter={[16, 16]}>

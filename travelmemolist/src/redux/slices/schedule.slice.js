@@ -19,6 +19,12 @@ const initialState = {
     error: null,
     meta: {},
   },
+  imageScheduleListComplete: {
+    data: [],
+    loading: false,
+    error: null,
+    meta: {},
+  },
 };
 
 export const scheduleSlice = createSlice({
@@ -84,6 +90,34 @@ export const scheduleSlice = createSlice({
       state.schedule.loading = false;
       state.schedule.error = error;
     },
+    getScheduleListCompleteRequest: (state,action)=>{
+      state.scheduleListComplete.loading = true;
+      state.scheduleListComplete.error = null;
+    },
+    getScheduleListCompleteSuccess: (state,action)=>{
+      const { data } = action.payload;
+      state.scheduleListComplete.loading = false;
+      state.scheduleListComplete.data = data;
+    },
+    getScheduleListCompleteFailure: (state,action)=>{
+      const { error } = action.payload;
+      state.scheduleListComplete.loading = false;
+      state.scheduleListComplete.error = error;
+    },
+    getImageScheduleListCompleteRequest:(state,action)=>{
+      state.imageScheduleListComplete.loading = true;
+      state.imageScheduleListComplete.error = null;
+    },
+    getImageScheduleListCompleteSuccess:(state,action)=>{
+      const { data } = action.payload;
+      state.imageScheduleListComplete.loading = false;
+      state.imageScheduleListComplete.data = data;
+    },
+    getImageScheduleListCompleteFailure:(state,action)=>{
+      const { error } = action.payload;
+      state.imageScheduleListComplete.loading = false;
+      state.imageScheduleListComplete.error = error;
+    }
   },
 });
 
@@ -99,7 +133,13 @@ export const {
   updateStatusFailure,
   getScheduleByIdRequest,
   getScheduleByIdSuccess,
-  getScheduleByIdFailure
+  getScheduleByIdFailure,
+  getScheduleListCompleteRequest,
+  getScheduleListCompleteSuccess,
+  getScheduleListCompleteFailure,
+  getImageScheduleListCompleteRequest,
+  getImageScheduleListCompleteSuccess,
+  getImageScheduleListCompleteFailure
 } = scheduleSlice.actions;
 
 export default scheduleSlice.reducer;

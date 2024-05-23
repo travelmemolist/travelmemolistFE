@@ -7,6 +7,7 @@ export const ROUTES = {
     REGISTER: "/register",
     COMPLETE_SCHEDULE:"/complete_schedule",
     SUPPORT:'/support',
-    PERSONAL_INFO: '/info'
+    PERSONAL_INFO: '/info',
+    IMAGE_SCHEDULE:'/image_schedule_complete'
   },
 };

@@ -12,7 +12,13 @@ import {
   updateStatusFailure,
   getScheduleByIdRequest,
   getScheduleByIdSuccess,
-  getScheduleByIdFailure
+  getScheduleByIdFailure,
+  getScheduleListCompleteRequest,
+  getScheduleListCompleteSuccess,
+  getScheduleListCompleteFailure,
+  getImageScheduleListCompleteRequest,
+  getImageScheduleListCompleteSuccess,
+  getImageScheduleListCompleteFailure
 } from "../slices/schedule.slice";
 import { notification } from "antd";
 
@@ -43,6 +49,7 @@ function* getScheduleListSaga(action) {
 
 function* updateStateScheduleSage(action) {
   try {
+
     const { scheduleId } = action.payload;
     const result = yield axios.put(`/schedules/${scheduleId}`);
     yield put(updateStatusSuccess({ data: result }));
@@ -61,9 +68,39 @@ function* getScheduleByIdSage(action) {
     yield put(getScheduleByIdFailure({ error: "Lỗi" }));
   }
 }
+
+function* getScheduleListCompleteSaga(action) {
+  try {
+    const { userId, title, page } = action.payload;
+    const result = yield axios.get(
+      `/schedules/completed_schedules?title=${title ? title : ""}&userid=${userId}&page=${page ? page : 0}`
+    );
+    yield put(getScheduleListCompleteSuccess({ data: result}));
+  } catch (e) {
+    yield put(getScheduleListCompleteFailure({ error: "Lỗi" }));
+  }
+}
+
+function* getImageScheduleListCompleteSaga(action) {
+  try {
+    const { scheduleId } = action.payload;
+    console.log(action);
+    const result = yield axios.get(
+      `/schedules/image_schedule/${scheduleId}`
+    );
+    console.log({result});
+    yield put(getImageScheduleListCompleteSuccess({ data: result}));
+  } catch (e) {
+    yield put(getImageScheduleListCompleteFailure({ error: "Lỗi" }));
+  }
+}
+
+
 export default function* ScheduleSaga() {
   yield takeEvery(createScheduleRequest, createScheduleSaga);
   yield takeEvery(getScheduleListRequest, getScheduleListSaga);
   yield takeEvery(updateStatusRequest,updateStateScheduleSage);
   yield takeEvery(getScheduleByIdRequest,getScheduleByIdSage);
+  yield takeEvery(getScheduleListCompleteRequest,getScheduleListCompleteSaga);
+  yield takeEvery(getImageScheduleListCompleteRequest,getImageScheduleListCompleteSaga);
 }

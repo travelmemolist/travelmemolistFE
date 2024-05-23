@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { useEffect, useMemo, useState } from "react";
-
 import { getScheduleListRequest } from "../../redux/slices/schedule.slice";
 import dayjs from "dayjs";
 import { generatePath, useNavigate } from "react-router-dom";
@@ -47,6 +46,7 @@ function Home() {
         return (
           <div key={index} className="schedules">
             <img
+              alt=""
               className="images"
               src="https://vcdn1-dulich.vnecdn.net/2022/06/03/cauvang-1654247842-9403-1654247849.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Swd6JjpStebEzT6WARcoOA"
             />
@@ -78,8 +78,8 @@ function Home() {
                       navigate(
                         generatePath(ROUTES.USER.FOLLOW, {
                           id: item?.schedulesId,
-                         
-                        },{ title: item?.title})
+
+                        }, { title: item?.title })
                       );
                     }}
                   >
@@ -98,6 +98,7 @@ function Home() {
         <div className="maincontent">
           <div className="schedules">
             <img
+              alt=""
               className="images"
               src="https://vcdn1-dulich.vnecdn.net/2022/06/03/cauvang-1654247842-9403-1654247849.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Swd6JjpStebEzT6WARcoOA"
             />
@@ -140,6 +141,7 @@ function Home() {
           </div>
           <div className="schedules">
             <img
+              alt=""
               className="images"
               src="https://vcdn1-dulich.vnecdn.net/2022/06/03/cauvang-1654247842-9403-1654247849.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Swd6JjpStebEzT6WARcoOA"
             />
@@ -182,6 +184,7 @@ function Home() {
           </div>
           <div className="schedules">
             <img
+              alt=""
               className="images"
               src="https://vcdn1-dulich.vnecdn.net/2022/06/03/cauvang-1654247842-9403-1654247849.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Swd6JjpStebEzT6WARcoOA"
             />
@@ -224,6 +227,7 @@ function Home() {
           </div>
           <div className="schedules">
             <img
+            alt=""
               className="images"
               src="https://vcdn1-dulich.vnecdn.net/2022/06/03/cauvang-1654247842-9403-1654247849.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Swd6JjpStebEzT6WARcoOA"
             />
@@ -266,6 +270,7 @@ function Home() {
           </div>
           <div className="schedules">
             <img
+            alt=""
               className="images"
               src="https://vcdn1-dulich.vnecdn.net/2022/06/03/cauvang-1654247842-9403-1654247849.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Swd6JjpStebEzT6WARcoOA"
             />
