@@ -13,6 +13,9 @@ import * as S from "./style";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateUserInfo } from "../redux/slices/auth.slice";
+import CompleteSchedule from "pages/CompleteSchedule";
+import Support from "pages/Support";
+import PersonalInfo from "pages/PersonaInfo";
 
 function App() {
   const [isShowLoading, setIsShowLoading] = useState(true);
@@ -92,6 +95,9 @@ function App() {
           <Route path="/" element={<Navigate to={ROUTES.USER.HOME} />}></Route>
           <Route path={ROUTES.USER.HOME} element={<Home />}></Route>
           <Route path={ROUTES.USER.FOLLOW} element={<FollowPage />}></Route>
+          <Route path={ROUTES.USER.COMPLETE_SCHEDULE} element={<CompleteSchedule />}></Route>
+          <Route path={ROUTES.USER.SUPPORT} element={<Support />}></Route>
+          <Route path={ROUTES.USER.PERSONAL_INFO} element={<PersonalInfo />}></Route>
           <Route
             path={ROUTES.USER.CREATESCHEDULE}
             element={<CreateSchedule />}

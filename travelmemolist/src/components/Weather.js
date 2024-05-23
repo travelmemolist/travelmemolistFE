@@ -27,13 +27,13 @@ const Weather = ({ weatherData, forecastData }) => {
 
       <div className="weather-details-container">
         <div className="details">
-          <h4 className="city-name">{weatherData.name}</h4>
+          {/* <h4 className="city-name">{weatherData.name}</h4> */}
           <div className="icon-and-temp">
-            <img
+            <img 
               src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
               alt="icon"
             />
-            <h1>{weatherData.main.temp}&deg;C</h1>
+            <h1 style={{fontSize:'24px'}}>{weatherData.main.temp}&deg;C</h1>
           </div>
           <h4 className="description">{weatherData.weather[0].description}</h4>
         </div>
@@ -98,7 +98,7 @@ const Weather = ({ weatherData, forecastData }) => {
                 />
                 <h5>{data.weather[0].description}</h5>
                 <h5 className="min-max-temp">
-                  {data.main.temp_max}&deg; / {data.main.temp_min}&deg;
+                  {/* {data.main.temp_max}&deg; / {data.main.temp_min}&deg; */}
                 </h5>
               </div>
             );

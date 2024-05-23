@@ -12,7 +12,7 @@ import * as S from "./style";
 
 import { createScheduleRequest } from "../../redux/slices/schedule.slice";
 import { useDispatch, useSelector } from "react-redux";
-import { generatePath, useNavigate } from "react-router-dom";
+import { generatePath, Navigate, useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
 import { useState } from "react";
 import Weather from "components/Weather";
@@ -34,6 +34,7 @@ function CreateSchedule() {
   const navigate = useNavigate();
 
   const { userInfo } = useSelector((state) => state.auth);
+
 
   const handleCreateSchedule = (values) => {
     if (values.startDay.isAfter(values.endDay)) {
@@ -84,6 +85,7 @@ function CreateSchedule() {
     );
     if (response.data) {
       setCityData(response.data);
+      console.log(cityData);
     }
     const response1 = await axios.get(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${unit}&APPID=11babbb919460208f1af6c211c8d81cb`
@@ -95,13 +97,13 @@ function CreateSchedule() {
 
   return (
     <S.CreateSchedule>
-      <Col span={24}>
-        <h1>Thêm lịch trình</h1>
+      <Col span={24} >
+        <h1 style={{textAlign:'center'}}>Thêm lịch trình</h1>
       </Col>
       <S.Content gutter={[16, 16]}>
         <S.FormCreate span={24}>
           <Row justify="space-between">
-            <Col span={12}>
+            <Col span={11}>
               <Form
                 name="createForm"
                 form={createForm}
@@ -174,11 +176,11 @@ function CreateSchedule() {
                 </Button>
               </Form>
             </Col>
-            <Col span={12}>
+            <Col span={12} >
               <div >
                 <Weather weatherData={cityData} forecastData={forecastData} />
               </div>
-              <div style={{ width: "100%", height: "30%" }}>
+              <div style={{ width: "100%", height: "35%" ,marginTop:'10px'}}>
                 <Map selectPosition={selectPosition} />
               </div>
             </Col>

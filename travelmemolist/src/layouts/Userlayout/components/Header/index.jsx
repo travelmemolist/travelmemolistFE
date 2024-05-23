@@ -36,10 +36,10 @@ function Header() {
         </div>
         <div className="item">
           <ul>
-            <li>Trang chủ</li>
-            <li>Kỉ niệm</li>
-            <li>Hỗ trợ</li>
-            <li>Thông tin cá nhân</li>
+            <li onClick={() => navigate(ROUTES.USER.HOME)}>Trang chủ</li>
+            <li onClick={() => navigate(ROUTES.USER.COMPLETE_SCHEDULE)}>Kỉ niệm</li>
+            <li onClick={() => navigate(ROUTES.USER.SUPPORT)}>Hỗ trợ</li>
+            <li onClick={() => navigate(ROUTES.USER.PERSONAL_INFO)}>Thông tin cá nhân</li>
             {userInfo?.data?.userId || userInfo?.accountInfoDTO?.userId ? (
               <li
                 onClick={() => {
@@ -61,7 +61,7 @@ function Header() {
           <h2>TRAVELMEMORYLIST</h2>
         </div>
         <div className="img">
-          <img src="https://xfar.netlify.app/assets/images/banner/1.png" />
+          <img alt="" src="https://xfar.netlify.app/assets/images/banner/1.png" />
         </div>
       </div>
     </S.HeaderWrapper>

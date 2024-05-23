@@ -2,29 +2,21 @@ import { FaArrowLeftLong, FaPen, FaPlus, FaEllipsis } from "react-icons/fa6";
 import * as S from "./style";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import AddActivityModal from "./components/AddActivity";
 import AddMemoryModal from "./components/AddMemoryModal";
 import outsideClick from "../../../src/components/outSideClick";
 import DeleteActivityModal from "./components/DeleteActivityModal";
 import UpdateDayActivity from "./components/UpdateDayActivity";
-
-import {
-  getActivityRequest,
-  getDayActivityListRequest,
-} from "../../redux/slices/dayActivity.slice";
-
+import { getActivityRequest, getDayActivityListRequest, } from "../../redux/slices/dayActivity.slice";
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
 import UpdateActivity from "./components/UpdateActivity";
-
 import duration from "dayjs/plugin/duration";
 import moment from "moment";
-
 import { getMemoryRequest } from "../../redux/slices/memory.slice";
 import { useNavigate, useParams } from "react-router-dom";
 import { ROUTES } from "constants/routes";
-
+import UpdateStatusModal from "./components/UpdateStatusModal";
 dayjs.extend(duration);
 function FollowPage() {
   var relativeTime = require("dayjs/plugin/relativeTime");
@@ -35,14 +27,13 @@ function FollowPage() {
   const [isShowUpdateActivity, setIsShowUpdateActivity] = useState(false);
   const [isShowDeleteActivity, setIsShowDeleteActivity] = useState(false);
   const [isShowUpdateDayActivity, setIsShowUpdateDayActivity] = useState(false);
-
+  const [isShowModalUpdateStatus, setIsShowModalUpdateStatus] = useState(false);
   const [indexDayActivity, setIndexDayActivity] = useState(null);
   const [indexActivity, setIndexActivity] = useState(null);
   const [idUpdate, setIdUpdate] = useState(null);
-
   const [dayActivity, setDayActivity] = useState({});
-
   const { dayActivityList } = useSelector((state) => state.dayActivity);
+  
   const { userInfo } = useSelector((state) => state.auth);
 
   const ref = useRef(null);
@@ -57,9 +48,7 @@ function FollowPage() {
   const params = useParams();
 
   const { id } = params;
-
   const { schedule } = useSelector((state) => state.schedule);
-
   useEffect(() => {
     dispatch(getDayActivityListRequest({ scheduleId: id }));
   }, []);
@@ -175,13 +164,11 @@ function FollowPage() {
         </S.ActivityDateItem>
       );
     });
-  }, [
-    dayActivityList.data,
-    indexActivity,
-    indexDayActivity,
-    setIsShowAddMemory,
-    setIsShowAddActivity,
-  ]);
+  }, [dayActivityList?.data, indexActivity, indexDayActivity, dispatch]);
+
+  const handleUpdateStatus = () => {
+    setIsShowModalUpdateStatus(true);
+  }
   return (
     <S.FollowWrapper>
       <AddActivityModal
@@ -214,21 +201,31 @@ function FollowPage() {
         setDayActivity={setDayActivity}
         scheduleId={id}
       />
+      <UpdateStatusModal
+        isShowModalUpdateStatus={isShowModalUpdateStatus}
+        setIsShowModalUpdateStatus={setIsShowModalUpdateStatus}
+        scheduleId={id}
+      />
       <S.HeadingFollow>
         <FaArrowLeftLong size={30} />
         <h1>
           {" "}
-          {dayActivityList?.data?.length} ngày tại {schedule.data.title}
+          {dayActivityList?.data?.length} ngày tại {}
         </h1>
       </S.HeadingFollow>
       <S.ActivityDateList gutter={[16, 16]}>
         {renderDayActivityList}
       </S.ActivityDateList>
-      <div style={{textAlign:"center",marginTop:'20px'}}>
-        <button style={{background:"#6c62ff",color:'white',cursor:"pointer",padding:"5px",fontSize:'16px',borderRadius:'6px'}}>Hoàn thành lịch trình</button>
+      <div style={{ textAlign: "center", marginTop: '20px' }}>
+        <button style={{ background: "#6c62ff", color: 'white', cursor: "pointer", padding: "5px", fontSize: '16px', borderRadius: '6px' }}
+          onClick={handleUpdateStatus}
+        >Hoàn thành lịch trình
+        </button>
       </div>
     </S.FollowWrapper>
   );
 }
 
 export default FollowPage;
+
+

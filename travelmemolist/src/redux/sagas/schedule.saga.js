@@ -7,6 +7,12 @@ import {
   getScheduleListRequest,
   getScheduleListSuccess,
   getScheduleListFailure,
+  updateStatusRequest,
+  updateStatusSuccess,
+  updateStatusFailure,
+  getScheduleByIdRequest,
+  getScheduleByIdSuccess,
+  getScheduleByIdFailure
 } from "../slices/schedule.slice";
 import { notification } from "antd";
 
@@ -24,10 +30,9 @@ function* createScheduleSaga(action) {
 function* getScheduleListSaga(action) {
   try {
     const { userId, title, page } = action.payload;
-    console.log("getScheduleListSaga", title);
+    // console.log("getScheduleListSaga", title);
     const result = yield axios.get(
-      `/schedules?title=${title ? title : ""}&userid=${userId}&page=${
-        page ? page : 0
+      `/schedules?title=${title ? title : ""}&userid=${userId}&page=${page ? page : 0
       }`
     );
     yield put(getScheduleListSuccess({ data: result }));
@@ -36,7 +41,29 @@ function* getScheduleListSaga(action) {
   }
 }
 
+function* updateStateScheduleSage(action) {
+  try {
+    const { scheduleId } = action.payload;
+    const result = yield axios.put(`/schedules/${scheduleId}`);
+    yield put(updateStatusSuccess({ data: result }));
+  } catch (e) {
+    yield put(updateStatusFailure({ error: "Lỗi" }));
+  }
+}
+
+
+function* getScheduleByIdSage(action) {
+  try {
+    const { scheduleId } = action.payload;
+    const result = yield axios.get(`/schedules/get_by_id/${scheduleId}`);
+    yield put(getScheduleByIdSuccess({ data: result }));
+  } catch (e) {
+    yield put(getScheduleByIdFailure({ error: "Lỗi" }));
+  }
+}
 export default function* ScheduleSaga() {
   yield takeEvery(createScheduleRequest, createScheduleSaga);
   yield takeEvery(getScheduleListRequest, getScheduleListSaga);
+  yield takeEvery(updateStatusRequest,updateStateScheduleSage);
+  yield takeEvery(getScheduleByIdRequest,getScheduleByIdSage);
 }
