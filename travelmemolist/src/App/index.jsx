@@ -16,6 +16,7 @@ import CompleteSchedule from "pages/CompleteSchedule";
 import Support from "pages/Support";
 import PersonalInfo from "pages/PersonaInfo";
 import ImageCompleteSchedule from "pages/ImageCompleteSchedule/Index";
+import ViewMemo from "pages/ViewMemo";
 
 function App() {
   const [isShowLoading, setIsShowLoading] = useState(true);
@@ -99,6 +100,7 @@ function App() {
           <Route path={ROUTES.USER.SUPPORT} element={<Support />}></Route>
           <Route path={ROUTES.USER.PERSONAL_INFO} element={<PersonalInfo />}></Route>
           <Route path={ROUTES.USER.IMAGE_SCHEDULE} element={<ImageCompleteSchedule />}></Route>
+          <Route path={ROUTES.USER.VIEW_IMAGE_SCHEDULE} element={<ViewMemo />}></Route>
           <Route
             path={ROUTES.USER.CREATESCHEDULE}
             element={<CreateSchedule />}

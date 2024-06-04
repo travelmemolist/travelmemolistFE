@@ -7,12 +7,25 @@ import {
   getMemoryRequest,
   getMemorySuccess,
   getMemoryFailure,
+  getImageMemoListRequest,
+  getImageMemoListSuccess,
+  getImageMemoListFailure,
 } from "../slices/memory.slice";
+
+function* getImageMemoListSaga(action){
+  try{
+    const { scheduleId } = action.payload;
+    const result = yield axios.get(`/images/image_schedule/${scheduleId}`);
+    console.log({result});
+    yield put(getImageMemoListSuccess({ data: result }));
+  }catch(e){
+    yield put(getImageMemoListFailure({ error: "Lỗi" }));
+  }
+}
 
 function* uploadMemorySaga(action) {
   try {
     const { data } = action.payload;
-
     const result = yield axios.post("/images/create_images", data);
     yield put(uploadMemorySuccess({ data: result.data }));
   } catch (e) {
@@ -42,4 +55,5 @@ function* getMemorySaga(action) {
 export default function* memorySaga() {
   yield takeEvery(uploadMemoryRequest, uploadMemorySaga);
   yield takeEvery(getMemoryRequest, getMemorySaga);
+  yield takeEvery(getImageMemoListRequest, getImageMemoListSaga);
 }

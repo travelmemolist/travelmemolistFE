@@ -11,6 +11,12 @@ const initialState = {
         error: null,
         meta: {},
     },
+    imageMemory: {
+        data: [],
+        loading: false,
+        error: null,
+        meta: {},
+    }
 };
 
 export const memorySlice = createSlice({
@@ -56,10 +62,27 @@ export const memorySlice = createSlice({
             state.uploadMemory.loading = false;
             state.uploadMemory.error = error;
         },
+        getImageMemoListRequest: (state, action) =>{
+            state.imageMemory.loading = true;
+            state.imageMemory.error = null;
+        },
+        getImageMemoListSuccess: (state, action) =>{
+            const { data } = action.payload;
+            state.imageMemory.loading = false;
+            state.imageMemory.data = data;
+        },
+        getImageMemoListFailure: (state, action) =>{
+            const { error } = action.payload;
+            state.imageMemory.loading = false;
+            state.imageMemory.error = error;
+        },
     },
 });
 
 export const {
+    getImageMemoListRequest,
+    getImageMemoListSuccess,
+    getImageMemoListFailure,
     uploadMemoryRequest,
     uploadMemorySuccess,
     uploadMemoryFailure,

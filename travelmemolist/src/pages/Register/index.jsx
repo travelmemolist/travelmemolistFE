@@ -151,10 +151,10 @@ function Register() {
         </Row>
       </Form>
       <div className="anotherlogin">
-        <a href="#">
+        <a href="#" className="a-login">
           <FaFacebookF />
         </a>
-        <a href="#">
+        <a href="#" className="a-login">
           <FaGoogle />
         </a>
       </div>

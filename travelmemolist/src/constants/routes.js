@@ -8,6 +8,7 @@ export const ROUTES = {
     COMPLETE_SCHEDULE:"/complete_schedule",
     SUPPORT:'/support',
     PERSONAL_INFO: '/info',
-    IMAGE_SCHEDULE:'/image_schedule_complete'
+    IMAGE_SCHEDULE:'/image_schedule_complete',
+    VIEW_IMAGE_SCHEDULE:'/view_image/:id',
   },
 };

@@ -78,7 +78,6 @@ function Home() {
                       navigate(
                         generatePath(ROUTES.USER.FOLLOW, {
                           id: item?.schedulesId,
-
                         }, { title: item?.title })
                       );
                     }}

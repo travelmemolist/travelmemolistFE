@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { getScheduleListCompleteRequest } from "../../redux/slices/schedule.slice";
 import dayjs from "dayjs";
+import { generatePath ,useNavigate} from 'react-router-dom';
+import { ROUTES } from 'constants/routes';
 export default function CompleteSchedule() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
   const { scheduleListComplete } = useSelector((state) => state.schedule);
 
@@ -50,9 +53,15 @@ export default function CompleteSchedule() {
                 </div>
                 <div className="specific">
                   <a
-                    style={{ cursor: "pointer" }}>
+                    style={{ cursor: "pointer" }}
+                    onClick={()=>{
+                      navigate(generatePath(ROUTES.USER.VIEW_IMAGE_SCHEDULE,{
+                        id: item?.schedulesId,
+                      }))
+                    }}
+                    >
                     <p>
-                      Theo dõi <i className="fa-solid fa-plus"></i>
+                      Xem kỉ niệm <i className="fa-solid fa-plus"></i>
                     </p>
                   </a>
                 </div>
